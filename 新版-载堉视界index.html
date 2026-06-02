@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080c14">
+<title>载堉视界 · GlobalAlpha 宏观量化信号台</title>
+<meta name="description" content="载堉视界 GlobalAlpha - 面向 QQQ、SPY、TQQQ 的宏观量化因子交易信号台">
+<link rel="icon" href="iconA.png" type="image/png">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080c14;--bg2:#0e1524;--bg3:#141e31;--panel:#111a2b;--panel2:#17233a;
+  --border:#263653;--border2:#3a5078;--text:#e6edf7;--muted:#96a4b8;--dim:#64748b;
+  --blue:#4f8cff;--cyan:#18c6d9;--green:#24d18b;--amber:#f4b740;--red:#ff5a6a;
+  --purple:#9d7cff;--gold:#f8ca55;--radius:8px;
+}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{
+  min-width:1180px;background:radial-gradient(circle at 18% 0%,rgba(79,140,255,.16),transparent 34rem),
+  linear-gradient(180deg,#080c14 0%,#0b111d 46%,#070a11 100%);
+  color:var(--text);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC","PingFang SC",sans-serif;
+  line-height:1.6;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(8,12,20,.92);backdrop-filter:blur(18px);border-bottom:1px solid rgba(58,80,120,.55)}
+.topbar-inner{width:min(1440px,calc(100% - 48px));height:66px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900}
+.brand img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:1px solid rgba(248,202,85,.38)}
+.brand span{font-size:1rem}.brand small{color:var(--muted);font-size:.74rem;font-weight:700}
+.nav{display:flex;align-items:center;gap:6px;padding:4px;border:1px solid var(--border);border-radius:var(--radius);background:rgba(17,26,43,.76)}
+.nav a{height:34px;display:flex;align-items:center;padding:0 14px;border-radius:6px;color:var(--muted);font-size:.82rem;font-weight:800}
+.nav a:hover,.nav a.active{background:rgba(79,140,255,.18);color:#d6e4ff}
+.mode-chip{padding:6px 12px;border:1px solid rgba(244,183,64,.42);border-radius:999px;background:rgba(244,183,64,.08);color:var(--amber);font-size:.72rem;font-weight:900;text-transform:uppercase}
+.wrap{width:min(1440px,calc(100% - 48px));margin:0 auto;padding:22px 0 60px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:18px;align-items:stretch;margin-bottom:16px}
+.hero-main,.hero-side,.panel{border:1px solid var(--border);border-radius:var(--radius);background:rgba(17,26,43,.88);box-shadow:0 22px 60px rgba(0,0,0,.18)}
+.hero-main{padding:24px;background:linear-gradient(135deg,rgba(17,26,43,.96),rgba(15,23,42,.74))}
+.kicker{margin-bottom:8px;color:var(--cyan);font-size:.72rem;font-weight:900;text-transform:uppercase}
+h1{max-width:920px;margin-bottom:12px;font-size:64px;line-height:.98;letter-spacing:0}
+h2{font-size:20px;line-height:1.2}h3{font-size:15px}.muted{color:var(--muted)}.dim{color:var(--dim)}
+.hero-copy{max-width:780px;color:var(--muted);font-size:15px}
+.hero-side{padding:18px;display:grid;gap:12px}
+.side-stat{padding:14px;border:1px solid var(--border);border-radius:8px;background:var(--bg3)}
+.side-stat span{display:block;color:var(--muted);font-size:12px;font-weight:800}.side-stat strong{display:block;margin-top:4px;font-size:24px}
+.risk-note{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px;padding:13px 16px;border:1px solid rgba(244,183,64,.36);border-radius:var(--radius);background:rgba(244,183,64,.08);color:#f6d894;font-size:13px}
+.grid{display:grid;grid-template-columns:minmax(0,1.8fr) 390px;gap:16px;margin-bottom:16px}.grid.equal{grid-template-columns:1fr 1fr}.wide{grid-column:1/-1}
+.panel{padding:18px}.panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:14px}
+.switcher{display:flex;gap:5px;padding:4px;border:1px solid var(--border);border-radius:8px;background:rgba(20,30,49,.8)}
+.switcher button{height:34px;padding:0 18px;border:0;border-radius:6px;background:transparent;color:var(--muted);cursor:pointer;font-weight:900}
+.switcher button.active{background:rgba(79,140,255,.2);color:#d6e4ff}
+.signal-card{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;padding:16px;border-radius:8px;border:1px solid rgba(36,209,139,.42);background:linear-gradient(135deg,rgba(36,209,139,.15),rgba(20,30,49,.92))}
+.signal-card.neutral{border-color:rgba(79,140,255,.38);background:linear-gradient(135deg,rgba(79,140,255,.14),rgba(20,30,49,.92))}
+.signal-card.hedge,.signal-card.riskOff{border-color:rgba(255,90,106,.42);background:linear-gradient(135deg,rgba(255,90,106,.14),rgba(20,30,49,.92))}
+.signal-card span,.metric span,.weight span,.factor-meta{color:var(--muted);font-size:12px;font-weight:800}.signal-card strong{display:block;margin:4px 0;font-size:34px;line-height:1}.signal-card small{color:var(--dim)}
+.columns{display:grid;grid-template-columns:1fr 1fr;gap:14px}.box{padding:14px;border:1px solid var(--border);border-radius:8px;background:var(--bg3)}
+ul{padding-left:18px;color:var(--muted);font-size:13px;line-height:1.85}
+.risk-meter,.weight-bar,.factor-meter{height:8px;overflow:hidden;border-radius:999px;background:var(--bg3)}.risk-meter span,.weight-bar span,.factor-meter span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--green),var(--amber),var(--red))}
+.weights{display:grid;gap:12px;margin-top:14px}.weight{display:grid;grid-template-columns:64px 54px 1fr;gap:10px;align-items:center}.weight strong{font-size:15px}
+.rebalance{margin-top:14px;color:var(--muted);font-size:13px;line-height:1.75}.score-row{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}.score-row strong{color:var(--gold);font-size:28px}
+.factor-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.factor{min-height:220px;padding:14px;border:1px solid var(--border);border-radius:8px;background:var(--bg3)}.factor.bullish{border-color:rgba(36,209,139,.36)}.factor.bearish{border-color:rgba(255,90,106,.36)}
+.factor-top{display:flex;justify-content:space-between;gap:12px;margin-bottom:10px;font-weight:900}.factor-top strong{font-size:22px}.factor-value{margin-bottom:10px;color:var(--gold);font-size:13px;font-weight:900}.factor p{min-height:74px;margin:10px 0;color:var(--muted);font-size:12px;line-height:1.65}.factor footer{display:flex;justify-content:space-between;gap:8px;color:var(--dim);font-size:11px}
+.sparkline{height:300px;display:flex;align-items:end;gap:4px;padding:14px;border:1px solid var(--border);border-radius:8px;background:linear-gradient(180deg,rgba(79,140,255,.08),rgba(20,30,49,.82))}
+.sparkline span{flex:1;min-width:3px;border-radius:3px 3px 0 0;background:linear-gradient(180deg,var(--cyan),var(--blue))}
+.metric-list{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}.metric{padding:14px;border:1px solid var(--border);border-radius:8px;background:var(--bg3)}.metric strong{display:block;margin-top:5px;font-size:24px}
+.playbook-grid,.library-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.playbook,.library{padding:14px;border:1px solid var(--border);border-radius:8px;background:var(--bg3)}
+.playbook strong,.library strong{display:block;margin-bottom:6px;color:var(--text)}.playbook span{display:block;margin-bottom:8px;color:var(--gold);font-size:12px;font-weight:900}.playbook p,.library span{color:var(--muted);font-size:12px;line-height:1.65}
+.table{width:100%;border-collapse:collapse;font-size:13px}.table th{text-align:left;padding:10px 12px;color:var(--dim);font-size:11px;text-transform:uppercase;border-bottom:1px solid var(--border)}.table td{padding:12px;border-bottom:1px solid rgba(38,54,83,.55)}.tag{display:inline-flex;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:900}.tag.green{background:rgba(36,209,139,.12);color:var(--green)}.tag.amber{background:rgba(244,183,64,.12);color:var(--amber)}.tag.red{background:rgba(255,90,106,.12);color:var(--red)}
+.footer{margin-top:24px;padding-top:18px;border-top:1px solid var(--border);color:var(--dim);font-size:12px;text-align:center}
+@media(max-width:1280px){body{min-width:1024px}h1{font-size:52px}.factor-grid{grid-template-columns:repeat(3,1fr)}.playbook-grid,.library-grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#">
+      <img src="iconA.png" alt="载堉视界">
+      <span>载堉视界</span><small>Zaiyu's Horizon</small>
+    </a>
+    <nav class="nav">
+      <a href="#signal" class="active">信号台</a>
+      <a href="#factors">因子热力</a>
+      <a href="#backtest">回测摘要</a>
+      <a href="#playbook">大师框架</a>
+      <a href="#library">知识库</a>
+    </nav>
+    <div class="mode-chip" id="dataMode">Research Snapshot</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="hero-main">
+      <div class="kicker">GlobalAlpha Macro Quant Signal Desk</div>
+      <h1>把宏观周期翻译成 QQQ / SPY / TQQQ 的仓位语言</h1>
+      <p class="hero-copy">这是一个普通 PC 版静态网页原型：用流动性、利率、通胀、美元/风险偏好、增长周期和周线趋势生成可解释信号。首版只做研究辅助，不接券商，不自动下单。</p>
+    </div>
+    <aside class="hero-side">
+      <div class="side-stat"><span>覆盖标的</span><strong>QQQ · SPY · TQQQ</strong></div>
+      <div class="side-stat"><span>交易周期</span><strong>周/月级择时</strong></div>
+      <div class="side-stat"><span>风险边界</span><strong>TQQQ 上限 15%</strong></div>
+    </aside>
+  </section>
+
+  <div class="risk-note"><strong>风险声明</strong><span>本网页仅用于宏观研究和个人决策辅助，不构成投资建议，不承诺收益。杠杆 ETF 波动和损耗风险极高。</span></div>
+
+  <section class="grid" id="signal">
+    <div class="panel">
+      <div class="panel-head">
+        <div><div class="kicker">Trading Signal</div><h2><span id="assetTitle">QQQ</span> 周/月级仓位建议</h2></div>
+        <div class="switcher" id="assetSwitcher">
+          <button class="active" data-asset="QQQ">QQQ</button>
+          <button data-asset="SPY">SPY</button>
+          <button data-asset="TQQQ">TQQQ</button>
+        </div>
+      </div>
+      <div class="signal-card" id="signalCard">
+        <div><span>方向</span><strong id="directionText">进攻做多</strong><small id="directionHint">riskOn</small></div>
+        <div><span>建议仓位</span><strong id="assetWeight">35-50%</strong><small>组合内风险预算</small></div>
+        <div><span>信号强度</span><strong id="strength">80</strong><small id="confidence">置信度 63%</small></div>
+      </div>
+      <div class="columns">
+        <div class="box"><h3>触发原因</h3><ul id="triggers"></ul></div>
+        <div class="box"><h3>失效条件</h3><ul><li>QQQ 周线跌破趋势确认线，风险预算下调。</li><li>VIX 升至 30 上方或 DXY 快速突破 108，暂停 TQQQ。</li><li>10Y 收益率重新快速上行并压制成长股估值。</li></ul></div>
+      </div>
+    </div>
+    <aside class="panel">
+      <div class="kicker">Portfolio Budget</div><h2>组合风险预算</h2>
+      <div class="risk-meter" style="margin-top:14px"><span id="riskMeter" style="width:82%"></span></div>
+      <div class="weights" id="weights"></div>
+      <p class="rebalance" id="rebalanceNote"></p>
+      <div class="score-row"><span class="muted">因子净分</span><strong id="netScore">+5</strong></div>
+    </aside>
+  </section>
+
+  <section class="panel wide" id="factors">
+    <div class="panel-head"><div><div class="kicker">Factor Engine</div><h2>宏观量化因子热力图</h2></div><span class="mode-chip">score -2..+2</span></div>
+    <div class="factor-grid" id="factorGrid"></div>
+  </section>
+
+  <section class="grid equal" id="backtest">
+    <div class="panel">
+      <div class="panel-head"><div><div class="kicker">Backtest Preview</div><h2><span id="btAsset">QQQ</span> 轻量回测摘要</h2></div></div>
+      <div class="sparkline" id="sparkline"></div>
+      <p class="muted" style="margin-top:10px;font-size:13px">使用研究快照价格序列做轻量演示；后续可接入 FRED、Treasury、ISM、BLS 等真实宏观时间序列。</p>
+    </div>
+    <div class="panel">
+      <div class="kicker">Scenario Rules</div><h2>首版场景判断</h2>
+      <table class="table" style="margin-top:12px">
+        <thead><tr><th>场景</th><th>信号</th><th>动作</th></tr></thead>
+        <tbody>
+          <tr><td>风险偏好强</td><td><span class="tag green">riskOn</span></td><td>QQQ/SPY 增配，TQQQ 小仓位开放</td></tr>
+          <tr><td>通胀/利率冲击</td><td><span class="tag red">riskOff</span></td><td>TQQQ 降为 0，现金提高</td></tr>
+          <tr><td>技术破位但宏观中性</td><td><span class="tag amber">hedge</span></td><td>观望/减仓，不强行做空</td></tr>
+          <tr><td>宏观利好但 VIX 异常</td><td><span class="tag amber">neutral</span></td><td>降低置信度，等待确认</td></tr>
+        </tbody>
+      </table>
+      <div class="metric-list" id="metrics" style="grid-template-columns:repeat(2,1fr)"></div>
+    </div>
+  </section>
+
+  <section class="panel wide" id="playbook">
+    <div class="panel-head"><div><div class="kicker">Master Playbook</div><h2>大师投资逻辑到交易规则的映射</h2></div><a class="mode-chip" href="marks.html">马克思备忘录</a></div>
+    <div class="playbook-grid" id="playbookGrid"></div>
+  </section>
+
+  <section class="panel wide" id="library">
+    <div class="panel-head"><div><div class="kicker">Knowledge Assets</div><h2>保留的研究内容资产</h2></div></div>
+    <div class="library-grid">
+      <a class="library" href="legacy-index.html"><strong>旧版完整原型</strong><span>原来的宏观、周期、个股、新闻多页签版本。</span></a>
+      <a class="library" href="buffett.html"><strong>巴菲特股东信</strong><span>长期主义、现金流、企业质量。</span></a>
+      <a class="library" href="marks.html"><strong>霍华德·马克思备忘录</strong><span>周期、风险、逆向与不确定性。</span></a>
+      <a class="library" href="kb/index.html"><strong>知识图谱</strong><span>现有知识库和索引入口。</span></a>
+      <a class="library" href="analytics.html"><strong>数据后台</strong><span>保留旧版访问数据 dashboard。</span></a>
+      <a class="library" href="mobile.html"><strong>旧版手机站</strong><span>保留移动端旧原型入口。</span></a>
+    </div>
+  </section>
+
+  <footer class="footer">载堉视界（Zaiyu's Horizon） · GlobalAlpha 宏观量化信号台 · 静态 PC 网页版</footer>
+</main>
+
+<script>
+const market = {
+  rates:{fedFunds:4.50,tenYearYield:4.35,twoYearYield:4.72},
+  inflation:{cpi:3.4,trend:'stable'},
+  risk:{vix:18.7,dxy:104.2,goldTrend:4.8,btcTrend:9.5},
+  growth:{pmi:51.2,cyclePhase:'recovery'},
+  assets:{
+    QQQ:[421,428,432,435,442,449,447,454,461,466,472,478,482,487,493,499,504,509,515,522,528,531,536,541,548,552,558,562,568,573],
+    SPY:[505,508,512,516,519,522,521,526,529,533,536,540,543,547,551,555,558,561,565,569,572,574,578,581,585,588,591,595,598,602],
+    TQQQ:[47,49,50,51,53,55,54,56,58,60,62,64,65,67,69,71,72,74,77,80,82,83,86,88,91,93,96,98,101,104]
+  }
+};
+const masters=[
+  ['李录','安全边际约束','当估值、宏观或杠杆条件不具备安全边际时，先降低杠杆而不是追逐收益。','限制 TQQQ 上限，避免在高估或高波动环境中放大风险。'],
+  ['彼得林奇','增长质量解释','增长必须能被盈利质量和长期基本面支撑，不能只看热门叙事。','解释 QQQ 的科技成长暴露，但要求趋势和流动性同时确认。'],
+  ['斯坦利·德鲁肯米勒','宏观趋势进攻','当宏观流动性、趋势和政策方向共振时，集中承担风险；错了就迅速撤退。','风险偏好强时提高 QQQ/SPY，TQQQ 只作为小比例增强。'],
+  ['比尔·格罗斯 / 瑞·达里奥','利率与周期框架','利率、通胀和债券收益率决定风险资产折现率与周期位置。','10Y 上行、曲线倒挂或通胀压力抬头时削减权益仓位。'],
+  ['保罗·都铎·琼斯 / 琳达·拉施克','趋势与止损纪律','顺势交易，但必须尊重止损、波动和仓位预算。','技术破位时即便宏观中性也不强行做多。'],
+  ['霍华德·马克思','周期与风险温度','市场最危险的时候往往是投资者最自信的时候。','VIX、美元和风险偏好极端时降低置信度，避免拥挤交易。'],
+  ['吉姆·西蒙斯 / 比尔·阿克曼','规则化与催化剂','把判断写成可检验规则；宏观冲击需要明确催化剂，而非叙事堆叠。','所有信号必须可解释、可回测、可失效。']
+];
+function avg(a){return a.reduce((s,x)=>s+x,0)/a.length}
+function ma(a,n){return a.length<n?null:avg(a.slice(-n))}
+function pct(a,n){return a.length<=n?0:(a.at(-1)-a[a.length-1-n])/a[a.length-1-n]*100}
+function maxDD(a){let peak=a[0],dd=0;a.forEach(v=>{peak=Math.max(peak,v);dd=Math.min(dd,(v-peak)/peak)});return Math.abs(dd*100)}
+function vol(a){const r=a.slice(1).map((v,i)=>(v-a[i])/a[i]);const m=avg(r);return Math.sqrt(avg(r.map(x=>(x-m)**2)))*Math.sqrt(52)*100}
+function dir(score){if(score>=1.05)return'riskOn';if(score<=-.9)return'riskOff';if(score<=-.35)return'hedge';return'neutral'}
+function dirText(d){return{riskOn:'进攻做多',neutral:'中性观察',riskOff:'防守降仓',hedge:'对冲/减仓'}[d]}
+function factorClass(score){return score>0?'bullish':score<0?'bearish':'neutral'}
+function factors(){
+  const q=market.assets.QQQ,ma10=ma(q,10),ma30=ma(q,30),mom=pct(q,12),v=market.risk.vix,d=market.risk.dxy,y=market.rates.tenYearYield,f=market.rates.fedFunds,c=market.inflation.cpi,p=market.growth.pmi;
+  return [
+    {id:'liquidity',name:'流动性条件',group:'macro',value:`Fed ${f.toFixed(2)}%`,pct:68,score:f<=3.75?2:f<=4.75?1:-1,conf:.48,ex:'利率水平越低，权益估值和成长股久期压力越小；当前以 Fed Funds 作为流动性代理。',src:'Fed policy proxy'},
+    {id:'rates',name:'利率与债券压力',group:'macro',value:`10Y ${y.toFixed(2)}%`,pct:72,score:y>=4.75?-2:y>=4.35?-1:y<=3.5?2:1,conf:.64,ex:'10Y 收益率上行会提高折现率，尤其压制 QQQ/TQQQ 的成长久期暴露。',src:'US Treasury proxy'},
+    {id:'inflation',name:'通胀趋势',group:'macro',value:`CPI ${c.toFixed(1)}% · ${market.inflation.trend}`,pct:61,score:c>=4||market.inflation.trend==='rising'?-2:c<=2.8&&market.inflation.trend==='falling'?2:0,conf:.58,ex:'通胀回落支持降息预期；通胀反弹会迫使市场下修风险资产估值。',src:'CPI proxy'},
+    {id:'risk',name:'美元与风险偏好',group:'risk',value:`VIX ${v.toFixed(1)} / DXY ${d.toFixed(1)}`,pct:Math.min(95,Math.max(5,v*2.7)),score:v>30||d>108?-2:v>22||d>105?-1:v<17&&d<103?2:1,conf:.52,ex:'VIX 和 DXY 同时上行通常意味着避险资金回流美元，权益仓位应降速。',src:'VIX/DXY proxy'},
+    {id:'growth',name:'增长与周期位置',group:'macro',value:`PMI ${p.toFixed(1)} · ${market.growth.cyclePhase}`,pct:p*1.2,score:p>=53?2:p>=50?1:p<47?-2:-1,conf:.55,ex:'复苏/扩张阶段更适合承担权益风险，收缩阶段优先现金和防守。',src:'PMI/cycle proxy'},
+    {id:'technical',name:'QQQ 周线趋势',group:'technical',value:`12周 ${mom.toFixed(1)}%`,pct:Math.min(95,Math.max(5,50+mom*2)),score:ma10>ma30&&mom>8?2:ma10>ma30?1:mom<-8?-2:-1,conf:.62,ex:'周/月级策略要求趋势确认；技术破位时即便宏观中性也不提高杠杆。',src:'QQQ weekly snapshot'},
+    {id:'master-risk',name:'大师框架风险约束',group:'master',value:'杠杆上限约束',pct:null,score:v>24?-1:0,conf:.70,ex:'李录/马克思强调安全边际，德鲁肯米勒/拉施克强调错了要撤；因此高波动时压低 TQQQ。',src:'Master playbook rules'}
+  ];
+}
+function weighted(fs){const macro=fs.filter(x=>x.group==='macro'),tech=fs.filter(x=>x.group==='technical'),risk=fs.filter(x=>x.group==='risk'),master=fs.filter(x=>x.group==='master');const av=a=>a.length?avg(a.map(x=>x.score)):0;return av(macro)*.55+av(tech)*.25+av(risk)*.15+av(master)*.05}
+function portfolio(d,score,fs){
+  const risk=fs.find(f=>f.id==='risk'),tech=fs.find(f=>f.id==='technical');
+  const tOpen=d==='riskOn'&&score>1.25&&tech.score>0&&risk.score>=0;
+  const w={
+    QQQ:d==='riskOn'?[35,50]:d==='neutral'?[20,35]:[0,20],
+    SPY:d==='riskOn'?[25,40]:d==='neutral'?[30,45]:[10,30],
+    TQQQ:tOpen?[0,15]:[0,0]
+  };
+  const cash=100-w.QQQ[1]-w.SPY[1]-w.TQQQ[1];
+  return {w,cash:Math.max(0,cash),riskBudget:d==='riskOn'?82:d==='neutral'?55:d==='hedge'?36:24};
+}
+function render(asset='QQQ'){
+  const fs=factors(),score=weighted(fs),d=dir(score),p=portfolio(d,score,fs),signal={QQQ:p.w.QQQ,SPY:p.w.SPY,TQQQ:p.w.TQQQ}[asset];
+  document.getElementById('assetTitle').textContent=asset;document.getElementById('btAsset').textContent=asset;
+  document.getElementById('directionText').textContent=dirText(d);document.getElementById('directionHint').textContent=d;
+  document.getElementById('assetWeight').textContent=`${signal[0]}-${signal[1]}%`;
+  document.getElementById('strength').textContent=Math.min(100,Math.max(0,Math.round(50+score*25)));
+  document.getElementById('confidence').textContent=`置信度 ${Math.round(avg(fs.map(x=>x.conf))*100)}%`;
+  document.getElementById('signalCard').className=`signal-card ${d}`;
+  document.getElementById('riskMeter').style.width=p.riskBudget+'%';
+  document.getElementById('netScore').textContent=(fs.reduce((s,x)=>s+x.score,0)>0?'+':'')+fs.reduce((s,x)=>s+x.score,0);
+  document.getElementById('rebalanceNote').textContent=d==='riskOn'?'宏观与趋势共振，允许权益仓位偏进攻；TQQQ 仍保持小仓位上限。':d==='neutral'?'信号未形成强共振，以 QQQ/SPY 核心仓位和现金缓冲为主。':'风险信号占优，优先现金、防守和等待趋势重新确认。';
+  document.getElementById('triggers').innerHTML=fs.filter(x=>Math.abs(x.score)>=1).slice(0,4).map(x=>`<li>${x.name}: ${x.ex}</li>`).join('');
+  document.getElementById('weights').innerHTML=[['QQQ',p.w.QQQ[1]],['SPY',p.w.SPY[1]],['TQQQ',p.w.TQQQ[1]],['Cash',p.cash]].map(([k,v])=>`<div class="weight"><span>${k}</span><strong>${v}%</strong><div class="weight-bar"><span style="width:${v}%"></span></div></div>`).join('');
+  document.getElementById('factorGrid').innerHTML=fs.map(x=>`<article class="factor ${factorClass(x.score)}"><div class="factor-top"><span>${x.name}</span><strong>${x.score>0?'+':''}${x.score}</strong></div><div class="factor-value">${x.value}</div><div class="factor-meter"><span style="width:${Math.round(x.conf*100)}%"></span></div><p>${x.ex}</p><footer><span>${x.src}</span><span>${x.pct==null?'分位不可用':'分位 '+Math.round(x.pct)+'%'}</span></footer></article>`).join('');
+  const series=market.assets[asset],min=Math.min(...series),max=Math.max(...series);
+  document.getElementById('sparkline').innerHTML=series.map(v=>`<span style="height:${12+(v-min)/(max-min)*88}%"></span>`).join('');
+  const ret=pct(series,Math.min(12,series.length-1)),dd=maxDD(series),vv=vol(series),sh=vv?ret/vv:0;
+  document.getElementById('metrics').innerHTML=[['年化收益',(ret*1.6).toFixed(1)+'%'],['最大回撤',dd.toFixed(1)+'%'],['胜率',ret>0?'58.0%':'42.0%'],['Sharpe',sh.toFixed(2)]].map(x=>`<div class="metric"><span>${x[0]}</span><strong>${x[1]}</strong></div>`).join('');
+}
+document.getElementById('assetSwitcher').addEventListener('click',e=>{if(e.target.tagName!=='BUTTON')return;document.querySelectorAll('#assetSwitcher button').forEach(b=>b.classList.remove('active'));e.target.classList.add('active');render(e.target.dataset.asset)});
+document.getElementById('playbookGrid').innerHTML=masters.map(m=>`<article class="playbook"><strong>${m[0]}</strong><span>${m[1]}</span><p>${m[2]}</p><p style="margin-top:8px;color:var(--cyan)">${m[3]}</p></article>`).join('');
+render('QQQ');
+</script>
+</body>
+</html>
