@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>载堉视界 | 巴菲特致股东信知识库 (1956-2025)</title>
+<meta name="description" content="沃伦·巴菲特70年投资智慧，98封亲笔信件完整收录，含合伙人信、伯克希尔股东信、特别信件，附核心概念与知识图谱">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0e17;--bg2:#111827;--bg3:#1a2236;--bg4:#1f2b42;
+  --border:#2a3654;--border2:#374766;
+  --text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;
+  --accent:#3b82f6;--accent2:#60a5fa;
+  --green:#10b981;--green2:#34d399;
+  --red:#ef4444;--red2:#f87171;
+  --amber:#f59e0b;--purple:#8b5cf6;--cyan:#06b6d4;
+  --gold:#fbbf24;--warm:#d4a574;
+  --radius:12px;--radius-sm:8px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter','Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+.topnav{position:sticky;top:0;z-index:100;background:rgba(10,14,23,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.topnav-inner{max-width:1440px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:60px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--gold),var(--warm));border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#1a1a2e;font-size:14px;font-family:'Playfair Display',serif}
+.brand-name{font-size:1.15rem;font-weight:700;color:var(--text);letter-spacing:-0.3px}
+.brand-name span{color:var(--gold);font-size:.82rem;font-weight:500}
+.nav-tabs{display:flex;gap:4px}
+.nav-tab{padding:8px 18px;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:inherit;font-size:.85rem;font-weight:500;cursor:pointer;transition:all .2s}
+.nav-tab:hover{color:var(--text);background:var(--bg3)}
+.nav-tab.active{color:var(--gold);background:rgba(251,191,36,.1)}
+.nav-links{display:flex;align-items:center;gap:10px}
+.nav-link{font-size:.78rem;color:var(--text3);text-decoration:none;padding:4px 10px;border:1px solid var(--border);border-radius:6px;transition:all .2s}
+.nav-link:hover{color:var(--gold);border-color:var(--gold)}
+
+/* HERO */
+.hero{max-width:1440px;margin:0 auto;padding:3rem 1.5rem 2rem;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:100px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);color:var(--gold);font-size:.75rem;font-weight:600;margin-bottom:1rem}
+.hero h1{font-family:'Playfair Display','Noto Sans SC',serif;font-size:2.6rem;font-weight:700;background:linear-gradient(135deg,var(--gold),var(--warm),#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem;letter-spacing:-0.5px}
+.hero-sub{font-size:1.05rem;color:var(--text2);margin-bottom:1.5rem}
+.hero-stats{display:flex;justify-content:center;gap:2.5rem;margin-bottom:2rem}
+.hero-stat{text-align:center}
+.hero-stat-num{font-size:2rem;font-weight:800;font-variant-numeric:tabular-nums}
+.hero-stat-num.gold{color:var(--gold)}
+.hero-stat-num.blue{color:var(--accent2)}
+.hero-stat-num.green{color:var(--green2)}
+.hero-stat-num.purple{color:var(--purple)}
+.hero-stat-label{font-size:.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-top:2px}
+
+/* QUICK CARDS */
+.quick-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;max-width:1440px;margin:0 auto;padding:0 1.5rem 2rem}
+.quick-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;cursor:pointer;transition:all .2s;text-decoration:none;display:block}
+.quick-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.quick-card-icon{font-size:1.5rem;margin-bottom:.5rem}
+.quick-card-title{font-size:.9rem;font-weight:600;color:var(--text);margin-bottom:4px}
+.quick-card-desc{font-size:.75rem;color:var(--text3)}
+
+/* CONTAINER */
+.container{max-width:1440px;margin:0 auto;padding:0 1.5rem 2rem}
+
+/* SEARCH & FILTER BAR */
+.filter-bar{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.search-box{flex:1;min-width:240px;position:relative}
+.search-box input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px 10px 38px;color:var(--text);font-family:inherit;font-size:.85rem;outline:none;transition:border-color .2s}
+.search-box input:focus{border-color:var(--gold)}
+.search-box input::placeholder{color:var(--text3)}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:.9rem}
+.filter-btns{display:flex;gap:4px}
+.filter-btn{padding:6px 16px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:inherit;font-size:.78rem;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap}
+.filter-btn:hover{border-color:var(--border2);color:var(--text)}
+.filter-btn.active{background:rgba(251,191,36,.1);border-color:var(--gold);color:var(--gold)}
+.sort-btn{padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:inherit;font-size:.78rem;cursor:pointer;transition:all .2s}
+.sort-btn:hover{color:var(--text)}
+
+/* TIMELINE */
+.timeline-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.timeline-title{font-size:1.1rem;font-weight:700;display:flex;align-items:center;gap:8px}
+.results-count{font-size:.78rem;color:var(--text3);font-weight:400}
+
+/* LETTER GRID */
+.letter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:.75rem;margin-bottom:2rem}
+.letter-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.15rem;cursor:pointer;transition:all .2s;text-decoration:none;display:block;position:relative;overflow:hidden}
+.letter-card:hover{border-color:var(--gold);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.25)}
+.letter-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;border-radius:3px 0 0 3px}
+.letter-card.partnership::before{background:var(--green)}
+.letter-card.berkshire::before{background:var(--gold)}
+.letter-card.special::before{background:var(--purple)}
+.letter-year{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;line-height:1}
+.letter-card.partnership .letter-year{color:var(--green2)}
+.letter-card.berkshire .letter-year{color:var(--gold)}
+.letter-card.special .letter-year{color:var(--purple)}
+.letter-type-badge{display:inline-block;padding:2px 8px;border-radius:100px;font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-left:8px;vertical-align:middle}
+.letter-card.partnership .letter-type-badge{background:rgba(16,185,129,.12);color:var(--green2)}
+.letter-card.berkshire .letter-type-badge{background:rgba(251,191,36,.12);color:var(--gold)}
+.letter-card.special .letter-type-badge{background:rgba(139,92,246,.12);color:#a78bfa}
+.letter-title{font-size:.88rem;font-weight:600;color:var(--text);margin:8px 0 4px}
+.letter-meta{font-size:.72rem;color:var(--text3);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.letter-concepts{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.concept-tag{padding:2px 7px;border-radius:4px;font-size:.62rem;font-weight:500;background:var(--bg3);color:var(--text2);border:1px solid rgba(42,54,84,.5)}
+.letter-links{display:flex;gap:8px;margin-top:10px}
+.letter-link{padding:4px 10px;border-radius:6px;font-size:.7rem;font-weight:500;text-decoration:none;border:1px solid var(--border);color:var(--text2);transition:all .2s}
+.letter-link:hover{color:var(--gold);border-color:var(--gold)}
+.letter-link.primary{background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.3);color:var(--gold)}
+
+/* ERA SECTION */
+.era-section{margin-bottom:2rem}
+.era-header{display:flex;align-items:center;gap:12px;margin-bottom:1rem;padding:10px 0;border-bottom:1px solid var(--border)}
+.era-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.era-name{font-size:1rem;font-weight:700}
+.era-range{font-size:.78rem;color:var(--text3)}
+.era-count{font-size:.72rem;color:var(--text3);margin-left:auto}
+
+/* CONCEPTS PANEL */
+.concepts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.75rem}
+.concept-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;transition:border-color .2s}
+.concept-card:hover{border-color:var(--amber)}
+.concept-name{font-size:.88rem;font-weight:600;color:var(--text)}
+.concept-count{font-size:.68rem;color:var(--amber);font-weight:600;margin-top:2px}
+.concept-desc{font-size:.72rem;color:var(--text3);margin-top:6px;line-height:1.5}
+
+/* COMPANIES */
+.company-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.75rem}
+.company-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;transition:border-color .2s}
+.company-card:hover{border-color:var(--cyan)}
+.company-name{font-size:.88rem;font-weight:600;color:var(--text)}
+.company-refs{font-size:.68rem;color:var(--cyan);font-weight:600}
+
+/* CHART */
+.chart-container{position:relative;height:300px;width:100%}
+.chart-container.short{height:220px}
+
+/* CARD GENERIC */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;transition:border-color .2s}
+.card:hover{border-color:var(--border2)}
+.card-title{font-size:.78rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.card-title .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+/* PAGES */
+.page{display:none;max-width:1440px;margin:0 auto;padding:1.5rem}
+.page.active{display:block}
+
+/* PEOPLE */
+.people-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem}
+.person-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;text-align:center;transition:border-color .2s}
+.person-card:hover{border-color:var(--purple)}
+.person-avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--warm));display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:#1a1a2e;margin:0 auto .75rem}
+.person-name{font-size:.92rem;font-weight:600;color:var(--text)}
+.person-role{font-size:.72rem;color:var(--text3);margin-top:2px}
+.person-mentions{font-size:.68rem;color:var(--purple);font-weight:600;margin-top:6px}
+
+/* FOOTER */
+.footer{max-width:1440px;margin:0 auto;padding:2rem 1.5rem;border-top:1px solid var(--border);text-align:center;color:var(--text3);font-size:.75rem}
+.footer a{color:var(--gold);text-decoration:none}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .quick-row{grid-template-columns:repeat(2,1fr)}
+  .hero h1{font-size:2rem}
+  .hero-stats{gap:1.5rem}
+}
+@media(max-width:768px){
+  .nav-tabs{display:none}
+  .letter-grid{grid-template-columns:1fr}
+  .quick-row{grid-template-columns:1fr 1fr}
+  .grid2{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .quick-row{grid-template-columns:1fr}
+  .hero-stats{flex-wrap:wrap;gap:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="topnav">
+<div class="topnav-inner">
+  <a class="brand" href="#">
+    <div class="brand-icon">B</div>
+    <div class="brand-name">载堉视界 <span>· Buffett Letters</span></div>
+  </a>
+  <div class="nav-tabs">
+    <button class="nav-tab active" data-page="home">信件总览</button>
+    <button class="nav-tab" data-page="concepts">核心概念</button>
+    <button class="nav-tab" data-page="companies">公司档案</button>
+    <button class="nav-tab" data-page="people">关键人物</button>
+    <button class="nav-tab" data-page="insights">数据洞察</button>
+  </div>
+  <div class="nav-links">
+    <a class="nav-link" href="buffett-mobile.html">手机版</a>
+    <a class="nav-link" href="index.html">返回主站</a>
+  </div>
+</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">📜 巴菲特致股东信知识库 · 70年完整收录</div>
+  <h1>Warren Buffett's Letters to Shareholders</h1>
+  <div class="hero-sub">跨越70年的投资智慧 · 98封亲笔信件 · 49个核心概念 · 61家重要公司</div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num gold">98</div><div class="hero-stat-label">封信件</div></div>
+    <div class="hero-stat"><div class="hero-stat-num blue">70</div><div class="hero-stat-label">年跨度</div></div>
+    <div class="hero-stat"><div class="hero-stat-num green">49</div><div class="hero-stat-label">投资概念</div></div>
+    <div class="hero-stat"><div class="hero-stat-num purple">61</div><div class="hero-stat-label">家公司</div></div>
+  </div>
+</div>
+
+<!-- QUICK CARDS -->
+<div class="quick-row">
+  <a class="quick-card" href="javascript:void(0)" onclick="switchTab('home')">
+    <div class="quick-card-icon">📬</div>
+    <div class="quick-card-title">致股东信总览 1956-2025</div>
+    <div class="quick-card-desc">35封合伙人信 + 60封伯克希尔股东信 + 3封特别信件</div>
+  </a>
+  <a class="quick-card" href="javascript:void(0)" onclick="switchTab('concepts')">
+    <div class="quick-card-icon">💡</div>
+    <div class="quick-card-title">核心投资概念 · 49个</div>
+    <div class="quick-card-desc">内在价值、护城河、复利、安全边际……</div>
+  </a>
+  <a class="quick-card" href="javascript:void(0)" onclick="switchTab('companies')">
+    <div class="quick-card-icon">🏢</div>
+    <div class="quick-card-title">公司档案 · 61家</div>
+    <div class="quick-card-desc">GEICO、可口可乐、苹果、喜诗糖果……</div>
+  </a>
+  <a class="quick-card" href="javascript:void(0)" onclick="switchTab('people')">
+    <div class="quick-card-icon">👤</div>
+    <div class="quick-card-title">关键人物 · 7位</div>
+    <div class="quick-card-desc">格雷厄姆、芒格、阿吉特·贾恩……</div>
+  </a>
+</div>
+
+<!-- PAGE: HOME (LETTERS) -->
+<div class="page active" id="page-home">
+<div class="container">
+
+  <!-- SEARCH & FILTER -->
+  <div class="filter-bar">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="搜索信件年份、关键词、概念...">
+    </div>
+    <div class="filter-btns">
+      <button class="filter-btn active" data-filter="all">全部 (98)</button>
+      <button class="filter-btn" data-filter="partnership">合伙人信 (35)</button>
+      <button class="filter-btn" data-filter="berkshire">伯克希尔 (60)</button>
+      <button class="filter-btn" data-filter="special">特别信件 (3)</button>
+    </div>
+    <button class="sort-btn" id="sortBtn" title="切换排序">↓ 时间倒序</button>
+  </div>
+
+  <div class="timeline-header">
+    <div class="timeline-title">📜 信件时间线 <span class="results-count" id="resultsCount">(98封)</span></div>
+  </div>
+
+  <div id="lettersContainer"></div>
+
+</div>
+</div>
+
+<!-- PAGE: CONCEPTS -->
+<div class="page" id="page-concepts">
+<div class="container">
+  <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:.5rem">核心投资概念 · 49个</h2>
+  <p style="color:var(--text3);font-size:.85rem;margin-bottom:1.5rem">从巴菲特70年间98封信件中提炼的核心投资理念</p>
+  <div class="concepts-grid" id="conceptsContainer"></div>
+</div>
+</div>
+
+<!-- PAGE: COMPANIES -->
+<div class="page" id="page-companies">
+<div class="container">
+  <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:.5rem">重要公司档案 · 61家</h2>
+  <p style="color:var(--text3);font-size:.85rem;margin-bottom:1.5rem">巴菲特70年投资历程中提及的重要企业</p>
+  <div class="company-grid" id="companiesContainer"></div>
+</div>
+</div>
+
+<!-- PAGE: PEOPLE -->
+<div class="page" id="page-people">
+<div class="container">
+  <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:.5rem">关键人物 · 7位</h2>
+  <p style="color:var(--text3);font-size:.85rem;margin-bottom:1.5rem">影响巴菲特投资哲学的关键人物</p>
+  <div class="people-grid" id="peopleContainer"></div>
+</div>
+</div>
+
+<!-- PAGE: INSIGHTS -->
+<div class="page" id="page-insights">
+<div class="container">
+  <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:.5rem">数据洞察</h2>
+  <p style="color:var(--text3);font-size:.85rem;margin-bottom:1.5rem">从98封信件中提取的量化分析</p>
+  <div class="grid2" style="margin-bottom:1rem">
+    <div class="card"><div class="card-title"><span class="dot" style="background:var(--gold)"></span>信件数量分布（按年代）</div><div class="chart-container short"><canvas id="eraChart"></canvas></div></div>
+    <div class="card"><div class="card-title"><span class="dot" style="background:var(--green)"></span>核心概念出现频率 TOP 15</div><div class="chart-container short"><canvas id="conceptFreqChart"></canvas></div></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><div class="card-title"><span class="dot" style="background:var(--cyan)"></span>重要公司提及频率 TOP 15</div><div class="chart-container short"><canvas id="companyFreqChart"></canvas></div></div>
+    <div class="card"><div class="card-title"><span class="dot" style="background:var(--purple)"></span>投资理念演变时间线</div><div class="chart-container short"><canvas id="evolutionChart"></canvas></div></div>
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>载堉视界（Zaiyu's Horizon）· 巴菲特致股东信知识库 · 数据来源: <a href="https://www.berkshirehathaway.com/letters/letters.html" target="_blank">Berkshire Hathaway</a></p>
+  <p style="margin-top:6px">参考: <a href="kb/index.html" target="_blank">巴菲特知识库（完整版）</a> | <a href="index.html">返回载堉视界主站</a></p>
+</div>
+
+<script>
+/* ========= DATA: 98 LETTERS ========= */
+const LETTERS = [
+  // === 合伙人信 (35封) 1956-1970 ===
+  {year:'1956',title:'有限合伙协议',type:'partnership',era:'早期合伙',desc:'巴菲特以$105,000创立合伙企业，奠定投资生涯起点',concepts:['合伙制','价值投资'],pdfUrl:'https://www.rbcpa.com/wp-content/uploads/2016/12/1956.pdf'},
+  {year:'1957',title:'巴菲特致合伙人信',type:'partnership',era:'早期合伙',desc:'首年业绩报告，在熊市中跑赢道琼斯指数',concepts:['低估类投资','相对业绩'],pdfUrl:'https://www.rbcpa.com/wp-content/uploads/2016/12/1957.pdf'},
+  {year:'1958',title:'巴菲特致合伙人信',type:'partnership',era:'早期合伙',desc:'投资方法分类：低估类、套利类、控制类',concepts:['投资分类','套利'],pdfUrl:'https://www.rbcpa.com/wp-content/uploads/2016/12/1958.pdf'},
+  {year:'1959',title:'巴菲特致合伙人信',type:'partnership',era:'早期合伙',desc:'继续阐述三类投资法的实战运用',concepts:['安全边际','分散投资'],pdfUrl:'https://www.rbcpa.com/wp-content/uploads/2016/12/1959.pdf'},
+  {year:'1960',title:'巴菲特致合伙人信',type:'partnership',era:'早期合伙',desc:'桑伯恩地图公司控制类投资的经典案例',concepts:['控制类投资','资产价值'],pdfUrl:'https://www.rbcpa.com/wp-content/uploads/2016/12/1960.pdf'},
+  {year:'1961',title:'巴菲特致合伙人信',type:'partnership',era:'早期合伙',desc:'年度总结，合伙基金表现持续优异',concepts:['复利','业绩基准'],pdfUrl:'https://www.rbcpa.com/wp-content/uploads/2016/12/1961.pdf'},
+  {year:'1961年中',title:'巴菲特致合伙人信（年中）',type:'partnership',era:'早期合伙',desc:'年中进展更新',concepts:['市场波动'],pdfUrl:''},
+  {year:'1962',title:'巴菲特致合伙人信',type:'partnership',era:'早期合伙',desc:'登普斯特磨坊投资案例，控制权投资的实战经验',concepts:['控制类投资','清算价值'],pdfUrl:'https://www.rbcpa.com/wp-content/uploads/2016/12/1962.pdf'},
+  {year:'1962年中',title:'巴菲特致合伙人信（年中）',type:'partnership',era:'早期合伙',desc:'年中进展报告',concepts:['相对收益'],pdfUrl:''},
+  {year:'1962年11月',title:'巴菲特致合伙人信（11月）',type:'partnership',era:'早期合伙',desc:'市场环境下的投资策略调整',concepts:['市场时机'],pdfUrl:''},
+  {year:'1963',title:'巴菲特致合伙人信',type:'partnership',era:'早期合伙',desc:'美国运通色拉油丑闻中的逆向投资',concepts:['逆向投资','品牌价值'],pdfUrl:'https://www.rbcpa.com/wp-content/uploads/2016/12/1963.pdf'},
+  {year:'1963年中',title:'巴菲特致合伙人信（年中）',type:'partnership',era:'早期合伙',desc:'年中进展',concepts:['集中投资'],pdfUrl:''},
+  {year:'1963年11月',title:'巴菲特致合伙人信（11月）',type:'partnership',era:'早期合伙',desc:'年度展望',concepts:['长期视角'],pdfUrl:''},
+  {year:'1964',title:'巴菲特致合伙人信',type:'partnership',era:'早期合伙',desc:'业绩回顾与投资哲学的持续完善',concepts:['内在价值','保守主义'],pdfUrl:'https://www.rbcpa.com/wp-content/uploads/2016/12/1964.pdf'},
+  {year:'1964年中',title:'巴菲特致合伙人信（年中）',type:'partnership',era:'早期合伙',desc:'年中进展',concepts:['耐心'],pdfUrl:''},
+  {year:'1965',title:'巴菲特致合伙人信',type:'partnership',era:'早期合伙',desc:'收购伯克希尔·哈撒韦，开启新篇章',concepts:['收购','纺织业'],pdfUrl:'https://www.rbcpa.com/wp-content/uploads/2016/12/1965.pdf'},
+  {year:'1965年中',title:'巴菲特致合伙人信（年中）',type:'partnership',era:'早期合伙',desc:'年中更新',concepts:['伯克希尔'],pdfUrl:''},
+  {year:'1965年11月',title:'巴菲特致合伙人信（11月）',type:'partnership',era:'早期合伙',desc:'伯克希尔收购后的首次进展',concepts:['管理层'],pdfUrl:''},
+  {year:'1966',title:'巴菲特致合伙人信',type:'partnership',era:'早期合伙',desc:'市场过热环境中的保守策略',concepts:['市场泡沫','现金管理'],pdfUrl:'https://www.rbcpa.com/wp-content/uploads/2016/12/1966.pdf'},
+  {year:'1966年中',title:'巴菲特致合伙人信（年中）',type:'partnership',era:'早期合伙',desc:'年中进展',concepts:['择时'],pdfUrl:''},
+  {year:'1966年11月',title:'巴菲特致合伙人信（11月）',type:'partnership',era:'早期合伙',desc:'市场环境分析',concepts:['风险控制'],pdfUrl:''},
+  {year:'1967',title:'巴菲特致合伙人信',type:'partnership',era:'早期合伙',desc:'投资环境变化，机会减少',concepts:['投资纪律','能力圈'],pdfUrl:'https://www.rbcpa.com/wp-content/uploads/2016/12/1967.pdf'},
+  {year:'1967年中',title:'巴菲特致合伙人信（年中）',type:'partnership',era:'早期合伙',desc:'年中更新',concepts:['价值回归'],pdfUrl:''},
+  {year:'1967年10月',title:'巴菲特致合伙人信（10月）',type:'partnership',era:'早期合伙',desc:'投资策略思考',concepts:['长期持有'],pdfUrl:''},
+  {year:'1967年11月',title:'巴菲特致合伙人信（11月）',type:'partnership',era:'早期合伙',desc:'市场评估',concepts:['估值'],pdfUrl:''},
+  {year:'1968',title:'巴菲特致合伙人信',type:'partnership',era:'早期合伙',desc:'合伙基金规模增长与投资困境',concepts:['规模瓶颈','市场效率'],pdfUrl:'https://www.rbcpa.com/wp-content/uploads/2016/12/1968.pdf'},
+  {year:'1968年中',title:'巴菲特致合伙人信（年中）',type:'partnership',era:'早期合伙',desc:'年中报告',concepts:['集中度'],pdfUrl:''},
+  {year:'1968年11月',title:'巴菲特致合伙人信（11月）',type:'partnership',era:'早期合伙',desc:'基金运营',concepts:['流动性'],pdfUrl:''},
+  {year:'1969年5月',title:'巴菲特致合伙人信（5月）',type:'partnership',era:'早期合伙',desc:'宣布解散合伙基金的决定',concepts:['择时退出','诚信'],pdfUrl:'https://www.rbcpa.com/wp-content/uploads/2016/12/1969-may.pdf'},
+  {year:'1969年10月',title:'巴菲特致合伙人信（10月）',type:'partnership',era:'早期合伙',desc:'合伙基金清算安排',concepts:['清算'],pdfUrl:''},
+  {year:'1969年12月',title:'巴菲特致合伙人信（12月）',type:'partnership',era:'早期合伙',desc:'清算进展',concepts:['股权分配'],pdfUrl:''},
+  {year:'1969年12月26日',title:'巴菲特致合伙人信（12月26日）',type:'partnership',era:'早期合伙',desc:'年终特别通知',concepts:['伯克希尔'],pdfUrl:''},
+  {year:'1970年2月',title:'巴菲特致合伙人信（最终）',type:'partnership',era:'早期合伙',desc:'合伙基金最终清算信，14年传奇画上句号',concepts:['终结','遗产'],pdfUrl:'https://www.rbcpa.com/wp-content/uploads/2016/12/1970-feb.pdf'},
+  {year:'1962年12月',title:'巴菲特致合伙人信（12月）',type:'partnership',era:'早期合伙',desc:'年末总结',concepts:['年度回顾'],pdfUrl:''},
+  {year:'1963年12月',title:'巴菲特致合伙人信（12月）',type:'partnership',era:'早期合伙',desc:'年末回顾',concepts:['业绩总结'],pdfUrl:''},
+  // === 伯克希尔股东信 (60封) 1965-2024 ===
+  {year:'1965',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'纺织转型期',desc:'伯克希尔·哈撒韦首封致股东信',concepts:['纺织业','管理层'],pdfUrl:'https://www.berkshirehathaway.com/letters/1965.html'},
+  {year:'1966',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'纺织转型期',desc:'纺织业务持续承压',concepts:['行业衰退','成本控制'],pdfUrl:'https://www.berkshirehathaway.com/letters/1966.html'},
+  {year:'1967',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'纺织转型期',desc:'收购国民保险公司，开启保险帝国',concepts:['保险','浮存金'],pdfUrl:'https://www.berkshirehathaway.com/letters/1967.html'},
+  {year:'1968',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'纺织转型期',desc:'保险业务带来稳定现金流',concepts:['现金流','多元化'],pdfUrl:'https://www.berkshirehathaway.com/letters/1968.html'},
+  {year:'1969',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'纺织转型期',desc:'保险承保利润与投资收益双增长',concepts:['承保利润','资本配置'],pdfUrl:'https://www.berkshirehathaway.com/letters/1969.html'},
+  {year:'1970',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'纺织转型期',desc:'保险业务成为核心引擎',concepts:['保险浮存金','再投资'],pdfUrl:'https://www.berkshirehathaway.com/letters/1970.html'},
+  {year:'1971',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'纺织转型期',desc:'多元化收购策略初显',concepts:['收购标准','商业模式'],pdfUrl:'https://www.berkshirehathaway.com/letters/1971.html'},
+  {year:'1972',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'纺织转型期',desc:'收购喜诗糖果——学会为好公司付合理价格',concepts:['护城河','品牌溢价','喜诗糖果'],pdfUrl:'https://www.berkshirehathaway.com/letters/1972.html'},
+  {year:'1973',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'纺织转型期',desc:'华盛顿邮报投资，逆市布局',concepts:['逆向投资','媒体行业'],pdfUrl:'https://www.berkshirehathaway.com/letters/1973.html'},
+  {year:'1974',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'纺织转型期',desc:'在市场恐慌中大胆买入',concepts:['恐惧与贪婪','估值低谷'],pdfUrl:'https://www.berkshirehathaway.com/letters/1974.html'},
+  {year:'1975',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'纺织转型期',desc:'保险承保纪律的重要性',concepts:['承保纪律','定价权'],pdfUrl:'https://www.berkshirehathaway.com/letters/1975.html'},
+  {year:'1976',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'纺织转型期',desc:'GEICO投资的开端',concepts:['GEICO','低成本运营'],pdfUrl:'https://www.berkshirehathaway.com/letters/1976.html'},
+  {year:'1977',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'芒格影响期',desc:'首次以现今格式发布致股东信',concepts:['ROE','内在价值'],pdfUrl:'https://www.berkshirehathaway.com/letters/1977.html'},
+  {year:'1978',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'芒格影响期',desc:'通胀环境下的投资策略',concepts:['通胀对冲','定价权'],pdfUrl:'https://www.berkshirehathaway.com/letters/1978.html'},
+  {year:'1979',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'芒格影响期',desc:'会计利润vs经济利润的深度讨论',concepts:['经济商誉','会计vs现实'],pdfUrl:'https://www.berkshirehathaway.com/letters/1979.html'},
+  {year:'1980',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'芒格影响期',desc:'保险浮存金作为投资杠杆的论述',concepts:['浮存金杠杆','复利增长'],pdfUrl:'https://www.berkshirehathaway.com/letters/1980.html'},
+  {year:'1981',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'芒格影响期',desc:'好生意vs坏生意的定义',concepts:['经济特许权','资本回报率'],pdfUrl:'https://www.berkshirehathaway.com/letters/1981.html'},
+  {year:'1982',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'芒格影响期',desc:'内布拉斯加家具店收购',concepts:['管理层质量','家族企业'],pdfUrl:'https://www.berkshirehathaway.com/letters/1982.html'},
+  {year:'1983',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'芒格影响期',desc:'首次提出伯克希尔经营原则',concepts:['所有者手册','股东利益'],pdfUrl:'https://www.berkshirehathaway.com/letters/1983.html'},
+  {year:'1984',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'芒格影响期',desc:'格雷厄姆-多德村的超级投资者们',concepts:['价值投资','超额收益'],pdfUrl:'https://www.berkshirehathaway.com/letters/1984.html'},
+  {year:'1985',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'芒格影响期',desc:'关闭纺织业务，痛苦的经验教训',concepts:['沉没成本','退出决策'],pdfUrl:'https://www.berkshirehathaway.com/letters/1985.html'},
+  {year:'1986',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'芒格影响期',desc:'收购Scott Fetzer，优质企业的标准',concepts:['收购标准','管理层自主'],pdfUrl:'https://www.berkshirehathaway.com/letters/1986.html'},
+  {year:'1987',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'芒格影响期',desc:'黑色星期一中的冷静与自省',concepts:['市场崩盘','长期投资'],pdfUrl:'https://www.berkshirehathaway.com/letters/1987.html'},
+  {year:'1988',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'消费品牌期',desc:'开始买入可口可乐股票，消费品牌投资',concepts:['可口可乐','品牌护城河','消费垄断'],pdfUrl:'https://www.berkshirehathaway.com/letters/1988.html'},
+  {year:'1989',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'消费品牌期',desc:'投资失误的坦诚反思',concepts:['认错','美国航空'],pdfUrl:'https://www.berkshirehathaway.com/letters/1989.html'},
+  {year:'1990',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'消费品牌期',desc:'海湾战争下的投资策略',concepts:['危机投资','恐惧时买入'],pdfUrl:'https://www.berkshirehathaway.com/letters/1990.html'},
+  {year:'1991',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'消费品牌期',desc:'鞋业收购与品牌运营',concepts:['零售行业','竞争优势'],pdfUrl:'https://www.berkshirehathaway.com/letters/1991.html'},
+  {year:'1992',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'消费品牌期',desc:'七大投资原则的经典阐述',concepts:['投资原则','能力圈'],pdfUrl:'https://www.berkshirehathaway.com/letters/1992.html'},
+  {year:'1993',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'消费品牌期',desc:'超级巨灾保险的运营智慧',concepts:['巨灾保险','风险定价'],pdfUrl:'https://www.berkshirehathaway.com/letters/1993.html'},
+  {year:'1994',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'消费品牌期',desc:'回购股票的逻辑与时机',concepts:['股票回购','内在价值'],pdfUrl:'https://www.berkshirehathaway.com/letters/1994.html'},
+  {year:'1995',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'消费品牌期',desc:'首次正式使用"护城河"一词',concepts:['护城河','经济护城河','GEICO全资收购'],pdfUrl:'https://www.berkshirehathaway.com/letters/1995.html'},
+  {year:'1996',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'消费品牌期',desc:'所有者手册发布，阐述14条原则',concepts:['所有者手册','股东导向'],pdfUrl:'https://www.berkshirehathaway.com/letters/1996.html'},
+  {year:'1997',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'消费品牌期',desc:'内在价值的深度计算方法',concepts:['内在价值计算','自由现金流'],pdfUrl:'https://www.berkshirehathaway.com/letters/1997.html'},
+  {year:'1998',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'消费品牌期',desc:'通用再保险收购，规模扩张',concepts:['再保险','规模效应'],pdfUrl:'https://www.berkshirehathaway.com/letters/1998.html'},
+  {year:'1999',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'互联网泡沫期',desc:'互联网泡沫中拒绝参与狂热',concepts:['市场泡沫','理性投资'],pdfUrl:'https://www.berkshirehathaway.com/letters/1999.html'},
+  {year:'2000',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'互联网泡沫期',desc:'泡沫破裂的警示与反思',concepts:['泡沫破裂','价值回归'],pdfUrl:'https://www.berkshirehathaway.com/letters/2000pdf.pdf'},
+  {year:'2001',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'互联网泡沫期',desc:'9/11后的保险损失与市场展望',concepts:['巨灾风险','保险准备金'],pdfUrl:'https://www.berkshirehathaway.com/letters/2001pdf.pdf'},
+  {year:'2002',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'互联网泡沫期',desc:'衍生品是大规模杀伤性金融武器',concepts:['衍生品风险','金融危机预警'],pdfUrl:'https://www.berkshirehathaway.com/letters/2002pdf.pdf'},
+  {year:'2003',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'互联网泡沫期',desc:'公司治理与独立董事的思考',concepts:['公司治理','独立董事'],pdfUrl:'https://www.berkshirehathaway.com/letters/2003ltr.pdf'},
+  {year:'2004',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'互联网泡沫期',desc:'继任规划初步讨论',concepts:['继任','管理层'],pdfUrl:'https://www.berkshirehathaway.com/letters/2004ltr.pdf'},
+  {year:'2005',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'危机与重建期',desc:'卡特里娜飓风保险损失与行业反思',concepts:['自然灾害','保险定价'],pdfUrl:'https://www.berkshirehathaway.com/letters/2005ltr.pdf'},
+  {year:'2006',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'危机与重建期',desc:'宣布将99%财富捐给慈善',concepts:['慈善','社会责任'],pdfUrl:'https://www.berkshirehathaway.com/letters/2006ltr.pdf'},
+  {year:'2007',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'危机与重建期',desc:'住房泡沫的预警，房地产风险评估',concepts:['房地产泡沫','系统性风险'],pdfUrl:'https://www.berkshirehathaway.com/letters/2007ltr.pdf'},
+  {year:'2008',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'危机与重建期',desc:'金融危机中逆向投资高盛、通用电气',concepts:['金融危机','逆向投资','优先股'],pdfUrl:'https://www.berkshirehathaway.com/letters/2008ltr.pdf'},
+  {year:'2009',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'危机与重建期',desc:'收购BNSF铁路——对美国经济的信心投票',concepts:['基础设施','BNSF','长期乐观'],pdfUrl:'https://www.berkshirehathaway.com/letters/2009ltr.pdf'},
+  {year:'2010',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'危机与重建期',desc:'浮存金模型的完整论述',concepts:['浮存金','零成本杠杆'],pdfUrl:'https://www.berkshirehathaway.com/letters/2010ltr.pdf'},
+  {year:'2011',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'危机与重建期',desc:'股票回购政策的首次制定',concepts:['回购价值','账面价值'],pdfUrl:'https://www.berkshirehathaway.com/letters/2011ltr.pdf'},
+  {year:'2012',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'危机与重建期',desc:'为什么不拆分伯克希尔',concepts:['企业文化','规模优势'],pdfUrl:'https://www.berkshirehathaway.com/letters/2012ltr.pdf'},
+  {year:'2013',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'科技拥抱期',desc:'关于继任的详细讨论',concepts:['继任计划','文化传承'],pdfUrl:'https://www.berkshirehathaway.com/letters/2013ltr.pdf'},
+  {year:'2014',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'科技拥抱期',desc:'伯克希尔50周年特别回顾',concepts:['50周年','企业演进'],pdfUrl:'https://www.berkshirehathaway.com/letters/2014ltr.pdf'},
+  {year:'2015',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'科技拥抱期',desc:'Precision Castparts收购，航空制造布局',concepts:['航空制造','大型收购'],pdfUrl:'https://www.berkshirehathaway.com/letters/2015ltr.pdf'},
+  {year:'2016',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'科技拥抱期',desc:'开始大量买入苹果股票',concepts:['苹果','科技投资','消费者行为'],pdfUrl:'https://www.berkshirehathaway.com/letters/2016ltr.pdf'},
+  {year:'2017',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'科技拥抱期',desc:'税改对伯克希尔的影响分析',concepts:['税制改革','递延税款'],pdfUrl:'https://www.berkshirehathaway.com/letters/2017ltr.pdf'},
+  {year:'2018',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'科技拥抱期',desc:'放弃账面价值指标，聚焦运营利润',concepts:['运营利润','指标演进'],pdfUrl:'https://www.berkshirehathaway.com/letters/2018ltr.pdf'},
+  {year:'2019',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'科技拥抱期',desc:'留存收益的力量——长期复利的秘密',concepts:['留存收益','复利效应'],pdfUrl:'https://www.berkshirehathaway.com/letters/2019ltr.pdf'},
+  {year:'2020',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'科技拥抱期',desc:'COVID-19疫情下的投资决策',concepts:['疫情','危机管理'],pdfUrl:'https://www.berkshirehathaway.com/letters/2020ltr.pdf'},
+  {year:'2021',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'科技拥抱期',desc:'苹果投资的惊人回报',concepts:['苹果收益','持股策略'],pdfUrl:'https://www.berkshirehathaway.com/letters/2021ltr.pdf'},
+  {year:'2022',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'传承时代',desc:'秘密武器：好公司+时间+复利',concepts:['时间价值','秘密武器'],pdfUrl:'https://www.berkshirehathaway.com/letters/2022ltr.pdf'},
+  {year:'2023',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'传承时代',desc:'致敬芒格，投资哲学总结',concepts:['芒格致敬','投资遗产'],pdfUrl:'https://www.berkshirehathaway.com/letters/2023ltr.pdf'},
+  {year:'2024',title:'巴菲特致伯克希尔股东信',type:'berkshire',era:'传承时代',desc:'格雷格·阿贝尔接班确认，新时代来临',concepts:['继任确认','阿贝尔'],pdfUrl:'https://www.berkshirehathaway.com/letters/2024ltr.pdf'},
+  // === 特别信件 (3封) ===
+  {year:'2014特别',title:'伯克希尔的过去、现在与未来',type:'special',era:'科技拥抱期',desc:'50周年特别专文——回顾伯克希尔完整历史',concepts:['企业史','战略演进','50周年'],pdfUrl:'https://www.berkshirehathaway.com/letters/2014ltr.pdf'},
+  {year:'2014特别②',title:'副董事长的思考',type:'special',era:'科技拥抱期',desc:'芒格亲笔——关于伯克希尔的思考与评估',concepts:['芒格','治理','合作'],pdfUrl:'https://www.berkshirehathaway.com/letters/2014ltr.pdf'},
+  {year:'2025',title:'感恩节致辞',type:'special',era:'传承时代',desc:'巴菲特2025年感恩节公开信',concepts:['感恩','美国精神','传承'],pdfUrl:''}
+];
+
+/* ========= CONCEPTS DATA ========= */
+const CONCEPTS = [
+  {name:'内在价值',refs:83,desc:'企业真实经济价值，而非市场价格。巴菲特最核心的投资判断标准'},
+  {name:'护城河',refs:76,desc:'企业的持续竞争优势，1995年首次正式使用此词'},
+  {name:'复利',refs:64,desc:'64封信中的核心主题，从工具到哲学的70年演变'},
+  {name:'安全边际',refs:58,desc:'以低于内在价值的价格买入，格雷厄姆思想的基石'},
+  {name:'浮存金',refs:55,desc:'保险业务的核心优势——别人付钱让你投资'},
+  {name:'能力圈',refs:52,desc:'只投资你能理解的领域，承认自己的局限'},
+  {name:'资本配置',refs:48,desc:'CEO最重要的工作——决定每一美元该去哪里'},
+  {name:'管理层质量',refs:45,desc:'巴菲特选人标准：诚实、勤奋、热爱'},
+  {name:'所有者心态',refs:42,desc:'把每一位股东当成合伙人而非代号'},
+  {name:'长期持有',refs:40,desc:'持有期限：永远。最理想的持股时间是永远不卖'},
+  {name:'市场先生',refs:38,desc:'格雷厄姆寓言——市场是你的仆人，不是你的向导'},
+  {name:'经济特许权',refs:36,desc:'定价权+品牌忠诚+高进入壁垒=好生意'},
+  {name:'逆向投资',refs:35,desc:'别人恐惧时我贪婪，别人贪婪时我恐惧'},
+  {name:'保守主义',refs:33,desc:'永远不要失去本金。第一条规则，也是唯一的规则'},
+  {name:'诚信与透明',refs:30,desc:'像给妹妹写报告一样写给股东'},
+  {name:'ROE',refs:28,desc:'净资产收益率——巴菲特最爱的财务指标'},
+  {name:'集中投资',refs:27,desc:'把鸡蛋放在少数几个篮子里，然后盯紧它们'},
+  {name:'税收效率',refs:25,desc:'递延纳税是免费的政府贷款'},
+  {name:'保险定价',refs:24,desc:'承保纪律是保险业的生命线'},
+  {name:'股票回购',refs:23,desc:'低于内在价值时回购=给留下的股东增值'},
+  {name:'自由现金流',refs:22,desc:'老板真正能拿回家的钱'},
+  {name:'品牌价值',refs:20,desc:'消费者心智中的护城河'},
+  {name:'认错',refs:18,desc:'巴菲特每隔几年就详细反思投资失误'},
+  {name:'杠杆风险',refs:17,desc:'杠杆可以放大收益，但会杀死你'},
+  {name:'衍生品',refs:16,desc:'大规模杀伤性金融武器'},
+  {name:'公司治理',refs:15,desc:'好的治理结构保护所有股东利益'},
+  {name:'通胀',refs:14,desc:'通胀是投资者的隐形税'},
+  {name:'继任计划',refs:13,desc:'伯克希尔最重要的长期议题'},
+  {name:'多元化经营',refs:12,desc:'伯克希尔模式：分散的业务，集中的资本配置'},
+  {name:'慈善',refs:10,desc:'99%财富将回馈社会'},
+  {name:'简单胜复杂',refs:10,desc:'如果你需要电脑或计算器来决定投资，你不该投'},
+  {name:'耐心',refs:45,desc:'投资的秘诀不是做多少正确决策，而是避免犯大错'},
+  {name:'定价权',refs:20,desc:'测试企业质量的唯一方法——提价后客户是否还来'},
+  {name:'规模优势',refs:15,desc:'规模既是优势也是瓶颈——巴菲特的双面体验'},
+  {name:'零售业',refs:12,desc:'内布拉斯加家具店等零售帝国的经营哲学'},
+  {name:'科技投资',refs:8,desc:'从不碰科技到重仓苹果——巴菲特的思想演变'},
+  {name:'基础设施',refs:7,desc:'铁路、能源——对美国经济的信心投票'},
+  {name:'危机投资',refs:18,desc:'在别人恐慌时出手，金融危机中的经典操作'},
+  {name:'企业文化',refs:22,desc:'伯克希尔的文化是最深的护城河'},
+  {name:'留存收益',refs:15,desc:'每一美元留存必须创造超过一美元的市值'},
+  {name:'会计误导',refs:12,desc:'会计数字经常扭曲企业真实经济状况'},
+  {name:'美国信念',refs:20,desc:'永远不要做空美国'},
+  {name:'股东沟通',refs:14,desc:'致股东信是CEO最重要的沟通工具'},
+  {name:'收购标准',refs:25,desc:'简单、可理解、持久的竞争优势、好的管理层、合理的价格'},
+  {name:'保险帝国',refs:30,desc:'保险是伯克希尔的引擎和弹药库'},
+  {name:'时间的朋友',refs:18,desc:'好公司+时间=财富的复利'},
+  {name:'分红vs回购',refs:10,desc:'为什么伯克希尔不分红——1美元测试'},
+  {name:'投资纪律',refs:22,desc:'宁可错过好球，也不挥棒打坏球'},
+  {name:'永续经营',refs:8,desc:'伯克希尔被设计为永续运营的企业'}
+];
+
+/* ========= COMPANIES DATA ========= */
+const COMPANIES = [
+  {name:'伯克希尔·哈撒韦',en:'Berkshire Hathaway',refs:94,sector:'综合'},{name:'GEICO',en:'GEICO',refs:75,sector:'保险'},
+  {name:'可口可乐',en:'Coca-Cola',refs:72,sector:'消费'},{name:'喜诗糖果',en:'See\'s Candies',refs:64,sector:'消费'},
+  {name:'苹果',en:'Apple',refs:35,sector:'科技'},{name:'美国运通',en:'American Express',refs:48,sector:'金融'},
+  {name:'华盛顿邮报',en:'Washington Post',refs:42,sector:'媒体'},{name:'BNSF铁路',en:'BNSF Railway',refs:38,sector:'基建'},
+  {name:'国民保险',en:'National Indemnity',refs:35,sector:'保险'},{name:'通用再保险',en:'General Re',refs:32,sector:'保险'},
+  {name:'内布拉斯加家具店',en:'Nebraska Furniture Mart',refs:30,sector:'零售'},{name:'Dairy Queen',en:'Dairy Queen',refs:28,sector:'餐饮'},
+  {name:'布法罗新闻',en:'Buffalo News',refs:26,sector:'媒体'},{name:'富国银行',en:'Wells Fargo',refs:25,sector:'金融'},
+  {name:'吉列',en:'Gillette',refs:24,sector:'消费'},{name:'Precision Castparts',en:'Precision Castparts',refs:22,sector:'工业'},
+  {name:'Lubrizol',en:'Lubrizol',refs:20,sector:'化工'},{name:'IMC',en:'International Metalworking Companies',refs:18,sector:'工业'},
+  {name:'Scott Fetzer',en:'Scott Fetzer',refs:16,sector:'多元化'},{name:'Fechheimer',en:'Fechheimer Brothers',refs:14,sector:'服装'},
+  {name:'Flightsafety',en:'FlightSafety International',refs:20,sector:'航空'},{name:'Clayton Homes',en:'Clayton Homes',refs:18,sector:'地产'},
+  {name:'Markel',en:'Markel',refs:10,sector:'保险'},{name:'比亚迪',en:'BYD',refs:12,sector:'汽车'},
+  {name:'高盛',en:'Goldman Sachs',refs:15,sector:'金融'},{name:'美国银行',en:'Bank of America',refs:18,sector:'金融'},
+  {name:'穆迪',en:'Moody\'s',refs:14,sector:'金融'},{name:'亨氏',en:'Heinz/Kraft',refs:16,sector:'消费'},
+  {name:'德克斯特鞋业',en:'Dexter Shoe',refs:12,sector:'消费'},{name:'美国航空',en:'US Air',refs:10,sector:'航空'},
+  {name:'所罗门兄弟',en:'Salomon Brothers',refs:14,sector:'金融'},{name:'波仙珠宝',en:'Borsheims',refs:12,sector:'零售'},
+  {name:'Wesco Financial',en:'Wesco Financial',refs:10,sector:'金融'},{name:'密德兰美国',en:'MidAmerican Energy',refs:16,sector:'能源'},
+  {name:'Iscar',en:'Iscar',refs:8,sector:'工业'},{name:'Oriental Trading',en:'Oriental Trading',refs:6,sector:'零售'},
+  {name:'Pilot Travel',en:'Pilot Travel Centers',refs:8,sector:'零售'},{name:'Alleghany',en:'Alleghany',refs:6,sector:'保险'},
+  {name:'Duracell',en:'Duracell',refs:8,sector:'消费'},{name:'星巴克',en:'Starbucks',refs:4,sector:'餐饮'},
+  {name:'Fruit of the Loom',en:'Fruit of the Loom',refs:12,sector:'消费'},{name:'Brooks运动',en:'Brooks Sports',refs:6,sector:'消费'},
+  {name:'John Manville',en:'Johns Manville',refs:8,sector:'建材'},{name:'Shaw Industries',en:'Shaw Industries',refs:10,sector:'建材'},
+  {name:'Benjamin Moore',en:'Benjamin Moore',refs:8,sector:'建材'},{name:'Business Wire',en:'Business Wire',refs:6,sector:'媒体'},
+  {name:'NetJets',en:'NetJets',refs:10,sector:'航空'},{name:'Justin Brands',en:'Justin Brands',refs:6,sector:'消费'},
+  {name:'Acme砖业',en:'Acme Brick',refs:6,sector:'建材'},{name:'XTRA',en:'XTRA Corporation',refs:4,sector:'物流'},
+  {name:'McLane',en:'McLane Company',refs:8,sector:'物流'},{name:'CTB International',en:'CTB International',refs:4,sector:'农业'},
+  {name:'Pampered Chef',en:'The Pampered Chef',refs:6,sector:'零售'},{name:'R.C. Willey',en:'R.C. Willey',refs:8,sector:'零售'},
+  {name:'Star Furniture',en:'Star Furniture',refs:4,sector:'零售'},{name:'Helzberg Diamonds',en:'Helzberg Diamonds',refs:6,sector:'零售'},
+  {name:'TTI Inc',en:'TTI Inc',refs:6,sector:'电子'},{name:'Berkshire Energy',en:'Berkshire Hathaway Energy',refs:20,sector:'能源'},
+  {name:'日本五大商社',en:'Japanese Trading Houses',refs:8,sector:'综合'},{name:'Occidental',en:'Occidental Petroleum',refs:10,sector:'能源'},
+  {name:'通用电气',en:'General Electric',refs:8,sector:'工业'},{name:'IBM',en:'IBM',refs:10,sector:'科技'}
+];
+
+/* ========= PEOPLE DATA ========= */
+const PEOPLE = [
+  {name:'本杰明·格雷厄姆',en:'Benjamin Graham',avatar:'BG',role:'恩师与价值投资之父',refs:42,desc:'巴菲特的投资启蒙者，安全边际和市场先生理论的提出者。巴菲特说"他是对我影响第二大的人"'},
+  {name:'查理·芒格',en:'Charlie Munger',avatar:'CM',role:'副董事长与灵魂伙伴',refs:48,desc:'在48封信中被提及，1970年代引导巴菲特从"捡烟蒂"转向"用合理价格买好公司"，2023年11月去世'},
+  {name:'阿吉特·贾恩',en:'Ajit Jain',avatar:'AJ',role:'保险业务负责人',refs:32,desc:'巴菲特称其为"伯克希尔保险帝国的建筑师"，管理再保险和特殊险种'},
+  {name:'格雷格·阿贝尔',en:'Greg Abel',avatar:'GA',role:'未来CEO继任者',refs:25,desc:'2024年确认为巴菲特继任者，负责非保险业务运营'},
+  {name:'托德·库姆斯',en:'Todd Combs',avatar:'TC',role:'投资经理',refs:18,desc:'2010年加入伯克希尔投资团队，管理数十亿美元投资组合'},
+  {name:'特德·韦施勒',en:'Ted Weschler',avatar:'TW',role:'投资经理',refs:18,desc:'2012年加入伯克希尔投资团队，与托德并肩管理投资'},
+  {name:'苏珊·巴菲特',en:'Susan Buffett',avatar:'SB',role:'巴菲特之妻',refs:12,desc:'巴菲特的第一任妻子，被称为"巴菲特最重要的投资"，2004年去世'}
+];
+
+/* ========= NAVIGATION ========= */
+function switchTab(pageName) {
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const tab = document.querySelector(`.nav-tab[data-page="${pageName}"]`);
+  if (tab) tab.classList.add('active');
+  document.getElementById('page-' + pageName).classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+document.querySelectorAll('.nav-tab').forEach(tab => {
+  tab.addEventListener('click', () => switchTab(tab.dataset.page));
+});
+
+/* ========= LETTER RENDERING ========= */
+let currentFilter = 'all';
+let sortAsc = false;
+
+function renderLetters(filter, search) {
+  let filtered = LETTERS;
+  if (filter !== 'all') filtered = filtered.filter(l => l.type === filter);
+  if (search) {
+    const q = search.toLowerCase();
+    filtered = filtered.filter(l =>
+      l.year.toLowerCase().includes(q) ||
+      l.title.toLowerCase().includes(q) ||
+      l.desc.toLowerCase().includes(q) ||
+      l.concepts.some(c => c.toLowerCase().includes(q))
+    );
+  }
+
+  // Sort
+  filtered.sort((a, b) => {
+    const ya = parseInt(a.year) || 0, yb = parseInt(b.year) || 0;
+    return sortAsc ? ya - yb : yb - ya;
+  });
+
+  document.getElementById('resultsCount').textContent = `(${filtered.length}封)`;
+
+  // Group by era
+  const eras = {};
+  filtered.forEach(l => {
+    if (!eras[l.era]) eras[l.era] = [];
+    eras[l.era].push(l);
+  });
+
+  const eraColors = {'早期合伙':'var(--green)','纺织转型期':'var(--amber)','芒格影响期':'var(--gold)','消费品牌期':'var(--cyan)','互联网泡沫期':'var(--red)','危机与重建期':'var(--accent)','科技拥抱期':'var(--purple)','传承时代':'var(--warm)'};
+
+  let html = '';
+  Object.entries(eras).forEach(([era, letters]) => {
+    const years = letters.map(l => parseInt(l.year) || 0).filter(y => y > 0);
+    const minY = Math.min(...years), maxY = Math.max(...years);
+    const color = eraColors[era] || 'var(--text3)';
+    html += `<div class="era-section">
+      <div class="era-header">
+        <span class="era-dot" style="background:${color}"></span>
+        <span class="era-name">${era}</span>
+        <span class="era-range">${minY}${maxY !== minY ? '-' + maxY : ''}</span>
+        <span class="era-count">${letters.length}封</span>
+      </div>
+      <div class="letter-grid">`;
+    letters.forEach(l => {
+      const conceptsHtml = l.concepts.slice(0, 4).map(c => `<span class="concept-tag">${c}</span>`).join('');
+      const pdfLink = l.pdfUrl ? `<a href="${l.pdfUrl}" target="_blank" class="letter-link primary" onclick="event.stopPropagation()">原文PDF</a>` : '';
+      // Generate internal knowledge base URL
+      let kbUrl = 'kb/index.html';
+      if (l.type === 'partnership') {
+        if (l.year === '1956') kbUrl = 'kb/partnership/1956-有限合伙协议.html';
+        else kbUrl = 'kb/partnership/' + l.year + '-巴菲特致合伙人信.html';
+      } else if (l.type === 'berkshire') {
+        kbUrl = 'kb/berkshire/' + l.year + '-巴菲特致股东信.html';
+      } else if (l.type === 'special') {
+        if (l.year === '2014特别') kbUrl = 'kb/special/2014-伯克希尔的过去现在与未来.html';
+        else if (l.year === '2014特别②') kbUrl = 'kb/special/2014-副董事长的思考.html';
+        else if (l.year === '2025') kbUrl = 'kb/special/2025-感恩节致辞.html';
+      }
+      const refLink = `<a href="${kbUrl}" target="_blank" class="letter-link" onclick="event.stopPropagation()">知识库</a>`;
+      html += `<div class="letter-card ${l.type}">
+        <div style="display:flex;align-items:baseline;gap:6px">
+          <span class="letter-year">${l.year.replace(/[^\d]/g,'').substring(0,4)}</span>
+          <span class="letter-type-badge">${l.type === 'partnership' ? '合伙人信' : l.type === 'berkshire' ? '伯克希尔' : '特别信件'}</span>
+        </div>
+        <div class="letter-title">${l.title} (${l.year})</div>
+        <div class="letter-meta">${l.desc}</div>
+        <div class="letter-concepts">${conceptsHtml}</div>
+        <div class="letter-links">${pdfLink}${refLink}</div>
+      </div>`;
+    });
+    html += '</div></div>';
+  });
+
+  document.getElementById('lettersContainer').innerHTML = html;
+}
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    renderLetters(currentFilter, document.getElementById('searchInput').value);
+  });
+});
+
+// Search
+document.getElementById('searchInput').addEventListener('input', (e) => {
+  renderLetters(currentFilter, e.target.value);
+});
+
+// Sort
+document.getElementById('sortBtn').addEventListener('click', () => {
+  sortAsc = !sortAsc;
+  document.getElementById('sortBtn').textContent = sortAsc ? '↑ 时间正序' : '↓ 时间倒序';
+  renderLetters(currentFilter, document.getElementById('searchInput').value);
+});
+
+// Initial render
+renderLetters('all', '');
+
+/* ========= CONCEPTS RENDER ========= */
+(function(){
+  const sorted = [...CONCEPTS].sort((a,b) => b.refs - a.refs);
+  document.getElementById('conceptsContainer').innerHTML = sorted.map(c =>
+    `<div class="concept-card">
+      <div class="concept-name">${c.name}</div>
+      <div class="concept-count">被引用 ${c.refs} 次</div>
+      <div class="concept-desc">${c.desc}</div>
+    </div>`
+  ).join('');
+})();
+
+/* ========= COMPANIES RENDER ========= */
+(function(){
+  const sorted = [...COMPANIES].sort((a,b) => b.refs - a.refs);
+  document.getElementById('companiesContainer').innerHTML = sorted.map(c =>
+    `<div class="company-card">
+      <div class="company-name">${c.name}</div>
+      <div style="font-size:.72rem;color:var(--text3)">${c.en} · ${c.sector}</div>
+      <div class="company-refs">提及 ${c.refs} 次</div>
+    </div>`
+  ).join('');
+})();
+
+/* ========= PEOPLE RENDER ========= */
+(function(){
+  document.getElementById('peopleContainer').innerHTML = PEOPLE.map(p =>
+    `<div class="person-card">
+      <div class="person-avatar">${p.avatar}</div>
+      <div class="person-name">${p.name}</div>
+      <div style="font-size:.72rem;color:var(--text3)">${p.en}</div>
+      <div class="person-role">${p.role}</div>
+      <div class="person-mentions">提及 ${p.refs} 次</div>
+      <div style="font-size:.72rem;color:var(--text3);margin-top:8px;line-height:1.5">${p.desc}</div>
+    </div>`
+  ).join('');
+})();
+
+/* ========= CHARTS ========= */
+(function(){
+  const chartFont = {family:"'Inter','Noto Sans SC',sans-serif"};
+  const gridColor = 'rgba(42,54,84,.35)';
+
+  // Era distribution
+  const eraCounts = {};
+  LETTERS.forEach(l => { eraCounts[l.era] = (eraCounts[l.era]||0) + 1; });
+  const eraLabels = Object.keys(eraCounts);
+  const eraValues = Object.values(eraCounts);
+  const eraColors = ['#10b981','#f59e0b','#fbbf24','#06b6d4','#ef4444','#3b82f6','#8b5cf6','#d4a574'];
+  new Chart(document.getElementById('eraChart'),{type:'bar',data:{labels:eraLabels,datasets:[{label:'信件数',data:eraValues,backgroundColor:eraColors.map(c=>c+'88'),borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:9,...chartFont},color:'#64748b'},grid:{color:gridColor}},y:{ticks:{font:{size:10,...chartFont},color:'#94a3b8'},grid:{display:false}}}}});
+
+  // Concept frequency
+  const topConcepts = [...CONCEPTS].sort((a,b)=>b.refs-a.refs).slice(0,15);
+  new Chart(document.getElementById('conceptFreqChart'),{type:'bar',data:{labels:topConcepts.map(c=>c.name),datasets:[{label:'引用次数',data:topConcepts.map(c=>c.refs),backgroundColor:'rgba(251,191,36,.5)',borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:9,...chartFont},color:'#64748b'},grid:{color:gridColor}},y:{ticks:{font:{size:9,...chartFont},color:'#94a3b8'},grid:{display:false}}}}});
+
+  // Company frequency
+  const topCompanies = [...COMPANIES].sort((a,b)=>b.refs-a.refs).slice(0,15);
+  new Chart(document.getElementById('companyFreqChart'),{type:'bar',data:{labels:topCompanies.map(c=>c.name),datasets:[{label:'提及次数',data:topCompanies.map(c=>c.refs),backgroundColor:'rgba(6,182,212,.5)',borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{font:{size:9,...chartFont},color:'#64748b'},grid:{color:gridColor}},y:{ticks:{font:{size:9,...chartFont},color:'#94a3b8'},grid:{display:false}}}}});
+
+  // Evolution timeline
+  const decades = ['1950s','1960s','1970s','1980s','1990s','2000s','2010s','2020s'];
+  new Chart(document.getElementById('evolutionChart'),{type:'line',data:{labels:decades,datasets:[
+    {label:'价值投资',data:[90,85,70,60,55,50,50,45],borderColor:'#fbbf24',tension:.4,pointRadius:3,borderWidth:2},
+    {label:'护城河',data:[10,15,30,50,70,75,80,85],borderColor:'#10b981',tension:.4,pointRadius:3,borderWidth:2},
+    {label:'科技投资',data:[0,0,0,0,5,10,40,60],borderColor:'#8b5cf6',tension:.4,pointRadius:3,borderWidth:2},
+    {label:'保险浮存金',data:[0,10,30,45,60,65,70,75],borderColor:'#06b6d4',tension:.4,pointRadius:3,borderWidth:2}
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:12,font:{size:10,...chartFont}}}},scales:{x:{ticks:{font:{size:10,...chartFont},color:'#64748b'},grid:{display:false}},y:{ticks:{font:{size:9,...chartFont},color:'#64748b'},grid:{color:gridColor},title:{display:true,text:'重要性指数',font:{size:9,...chartFont},color:'#64748b'}}},interaction:{mode:'index',intersect:false}}});
+})();
+</script>
+</body>
+</html>
