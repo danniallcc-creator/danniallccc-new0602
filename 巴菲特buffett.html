@@ -193,7 +193,6 @@ body{font-family:'Inter','Noto Sans SC',system-ui,sans-serif;background:var(--bg
     <button class="nav-tab" data-page="insights">数据洞察</button>
   </div>
   <div class="nav-links">
-    <a class="nav-link" href="buffett-mobile.html">手机版</a>
     <a class="nav-link" href="index.html">返回主站</a>
   </div>
 </div>
@@ -310,7 +309,7 @@ body{font-family:'Inter','Noto Sans SC',system-ui,sans-serif;background:var(--bg
 <!-- FOOTER -->
 <div class="footer">
   <p>载堉视界（Zaiyu's Horizon）· 巴菲特致股东信知识库 · 数据来源: <a href="https://www.berkshirehathaway.com/letters/letters.html" target="_blank">Berkshire Hathaway</a></p>
-  <p style="margin-top:6px">参考: <a href="kb/index.html" target="_blank">巴菲特知识库（完整版）</a> | <a href="index.html">返回载堉视界主站</a></p>
+  <p style="margin-top:6px">参考: <a href="https://www.berkshirehathaway.com/letters/letters.html" target="_blank">Berkshire Hathaway Letters</a> · <a href="https://www.rbcpa.com/buffett.html" target="_blank">合伙人信存档</a> | <a href="index.html">返回载堉视界主站</a></p>
 </div>
 
 <script>
@@ -581,19 +580,8 @@ function renderLetters(filter, search) {
     letters.forEach(l => {
       const conceptsHtml = l.concepts.slice(0, 4).map(c => `<span class="concept-tag">${c}</span>`).join('');
       const pdfLink = l.pdfUrl ? `<a href="${l.pdfUrl}" target="_blank" class="letter-link primary" onclick="event.stopPropagation()">原文PDF</a>` : '';
-      // Generate internal knowledge base URL
-      let kbUrl = 'kb/index.html';
-      if (l.type === 'partnership') {
-        if (l.year === '1956') kbUrl = 'kb/partnership/1956-有限合伙协议.html';
-        else kbUrl = 'kb/partnership/' + l.year + '-巴菲特致合伙人信.html';
-      } else if (l.type === 'berkshire') {
-        kbUrl = 'kb/berkshire/' + l.year + '-巴菲特致股东信.html';
-      } else if (l.type === 'special') {
-        if (l.year === '2014特别') kbUrl = 'kb/special/2014-伯克希尔的过去现在与未来.html';
-        else if (l.year === '2014特别②') kbUrl = 'kb/special/2014-副董事长的思考.html';
-        else if (l.year === '2025') kbUrl = 'kb/special/2025-感恩节致辞.html';
-      }
-      const refLink = `<a href="${kbUrl}" target="_blank" class="letter-link" onclick="event.stopPropagation()">知识库</a>`;
+      // Link to original source (Berkshire Hathaway / rbcpa.com)
+      const refLink = l.pdfUrl ? `<a href="${l.pdfUrl}" target="_blank" class="letter-link" onclick="event.stopPropagation()">原文全文</a>` : '';
       html += `<div class="letter-card ${l.type}">
         <div style="display:flex;align-items:baseline;gap:6px">
           <span class="letter-year">${l.year.replace(/[^\d]/g,'').substring(0,4)}</span>
