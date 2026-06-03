@@ -2295,35 +2295,45 @@ new Chart(obCtx, {
 
 /* ========= CRISIS WARNING (ported from PC) ========= */
 (function(){
-  const B2000={sp500:1527.46,nasdaq:5048.62,cape:44.19,pe:32,fed:6.32,t2y:5.8,t5y:5.9,t10y:6.3,t30y:6.0,dxy:120,gold:272,btc:null,oil:35,cpi:3.4,pce:2.0,conc:27,prof:3.8};
-  const B2026={sp500:7610,nasdaq:27094,cape:41.6,pe:27.4,fed:3.625,t2y:4.05,t5y:4.20,t10y:4.47,t30y:5.0,dxy:99.3,gold:4493,btc:67276,oil:95,cpi:3.8,pce:3.3,conc:39,prof:5.2};
+  const B2000={sp500_ret:19.3,nasdaq_ret:85.6,cape:44.19,pe:32,fed:6.32,t2y:5.8,t5y:5.9,t10y:6.3,t30y:6.0,dxy_chg:25,gold_chg:-4.9,btc_chg:null,oil_chg:192,cpi:3.4,pce:2.0,conc:27,prof:3.8};
+  const B2008={sp500_ret:-18.0,nasdaq_ret:-22.0,cape:27.5,pe:22,fed:1.0,t2y:1.2,t5y:2.0,t10y:3.7,t30y:4.2,dxy_chg:10,gold_chg:28,btc_chg:null,oil_chg:-56,cpi:0.1,pce:1.7,conc:20,prof:-22};
+  const B2020={sp500_ret:5.7,nasdaq_ret:18.0,cape:31.8,pe:22,fed:0.10,t2y:0.2,t5y:0.4,t10y:0.7,t30y:1.4,dxy_chg:1.5,gold_chg:15,btc_chg:-30,oil_chg:-40,cpi:1.4,pce:1.3,conc:27,prof:-24};
+  const B2022={sp500_ret:-18.1,nasdaq_ret:-29.0,cape:28.8,pe:20,fed:4.40,t2y:4.4,t5y:4.1,t10y:3.9,t30y:4.2,dxy_chg:10,gold_chg:-1,btc_chg:-63,oil_chg:10,cpi:7.1,pce:5.3,conc:28,prof:5};
+  const B2026={sp500_ret:14.1,nasdaq_ret:18.5,cape:41.6,pe:27.4,fed:3.625,t2y:4.05,t5y:4.20,t10y:4.47,t30y:5.0,dxy_chg:-5,gold_chg:73,btc_chg:9,oil_chg:32,cpi:3.8,pce:3.3,conc:39,prof:5.2};
   const DIMS=[
-    {n:'美股走势',ic:'📈',w:.15,s:(a,b)=>{const s1=1-Math.min(Math.abs(a.sp500-b.sp500)/b.sp500,.99);const s2=1-Math.min(Math.abs(a.nasdaq-b.nasdaq)/b.nasdaq,.99);return Math.round((s1*.5+s2*.5)*100);}},
-    {n:'盈利与估值',ic:'📊',w:.20,s:(a,b)=>{const s1=1-Math.abs(a.cape-b.cape)/b.cape;const s2=1-Math.abs(a.pe-b.pe)/b.pe;const s3=1-Math.abs(a.conc-b.conc)/b.conc;return Math.round((s1*.4+s2*.3+s3*.3)*100);}},
-    {n:'利率环境',ic:'🏛️',w:.15,s:(a,b)=>{const s1=1-Math.abs(a.t30y-b.t30y)/b.t30y;const s2=1-Math.abs(a.t10y-b.t10y)/b.t10y;const s3=1-Math.abs(a.t5y-b.t5y)/b.t5y;return Math.round((s1*.50+s2*.30+s3*.20)*100);}},
-    {n:'美元走势',ic:'💵',w:.08,s:(a,b)=>Math.max(0,Math.round((1-Math.abs(a.dxy-b.dxy)/50)*100));},
-    {n:'黄金走势',ic:'🥇',w:.10,s:(a,b)=>a.gold===null||b.gold===null?null:Math.max(0,Math.round((1-Math.abs(a.gold-b.gold)/Math.abs(b.gold))*100));},
-    {n:'BTC走势',ic:'₿',w:.05,s:(a,b)=>a.btc===null||b.btc===null?null:Math.max(0,Math.round((1-Math.abs(a.btc-b.btc)/b.btc)*100));},
-    {n:'石油价格',ic:'🛢️',w:.08,s:(a,b)=>{const s1=1-Math.min(Math.abs(a.oil-b.oil)/b.oil,.99);return Math.round(s1*100);}},
+    {n:'美股走势',ic:'📈',w:.15,s:(a,b)=>{const s1=1-Math.min(Math.abs(a.sp500_ret-b.sp500_ret)/b.sp500_ret,.99);const s2=1-Math.min(Math.abs(a.nasdaq_ret-b.nasdaq_ret)/b.nasdaq_ret,.99);return Math.round((s1*.5+s2*.5)*100);}},
+    {n:'盈利与估值',ic:'📊',w:.20,s:(a,b)=>{const s1=a.cape!=null?1-Math.abs(a.cape-b.cape)/b.cape:0.5;const s2=a.pe!=null?1-Math.abs(a.pe-b.pe)/b.pe:0.5;const s3=1-Math.abs(a.conc-b.conc)/b.conc;return Math.round((s1*.4+s2*.3+s3*.3)*100);}},
+    {n:'利率环境',ic:'🏛️',w:.15,s:(a,b)=>{const s1=1-Math.abs(a.t30y-b.t30y)/b.t30y;const s2=1-Math.abs(a.t10y-b.t10y)/b.t10y;const s3=a.t5y!=null?1-Math.abs(a.t5y-b.t5y)/b.t5y:0.5;return Math.round((s1*.50+s2*.30+s3*.20)*100);}},
+    {n:'美元走势',ic:'💵',w:.08,s:(a,b)=>Math.max(0,Math.round((1-Math.abs(a.dxy_chg-b.dxy_chg)/50)*100));},
+    {n:'黄金走势',ic:'🥇',w:.10,s:(a,b)=>a.gold_chg===null||b.gold_chg===null?null:(a.gold_chg*b.gold_chg<0)?15:Math.max(0,Math.round((1-Math.abs(a.gold_chg-b.gold_chg)/100)*100));},
+    {n:'BTC走势',ic:'₿',w:.05,s:()=>null},
+    {n:'石油价格',ic:'🛢️',w:.08,s:(a,b)=>{if(a.oil_chg>100&&b.oil_chg>20)return 55;return Math.max(0,Math.round((1-Math.abs(a.oil_chg-b.oil_chg)/200)*100));}},
     {n:'PCE/CPI',ic:'📉',w:.08,s:(a,b)=>{const s1=1-Math.min(Math.abs(a.cpi-b.cpi)/b.cpi,1);const s2=1-Math.min(Math.abs(a.pce-b.pce)/b.pce,1);return Math.round((s1*.5+s2*.5)*100);}},
-    {n:'企业健康',ic:'🏢',w:.11,s:(a,b)=>{const s1=1-Math.min(Math.abs(a.prof-b.prof)/b.prof,1);const s2=1-Math.abs(a.conc-b.conc)/b.conc;return Math.round((s1*.6+s2*.4)*100);}},
+    {n:'企业健康',ic:'🏢',w:.11,s:(a,b)=>{const s1=(a.prof!=null&&b.prof!=null)?1-Math.min(Math.abs(a.prof-b.prof)/Math.max(Math.abs(a.prof),Math.abs(b.prof)),1):0.5;const s2=1-Math.abs(a.conc-b.conc)/b.conc;return Math.round((s1*.6+s2*.4)*100);}},
   ];
-  const scores=DIMS.map(d=>({...d,score:d.s(B2000,B2026)}));
-  // IQR 法剔除异常维度后再加权: 排序求Q1/Q3 → 下界=max(Q1-1.5*IQR,20) → 排除离群项 → 用剩余权重归一化
-  const _sims=scores.filter(d=>d.score!=null).map(d=>d.score).sort((a,b)=>a-b);
-  const _q=p=>{const i=(_sims.length-1)*p,lo=Math.floor(i),hi=Math.ceil(i);return _sims[lo]+(_sims[hi]-_sims[lo])*(i-lo);};
-  const _Q1=_q(.25),_Q3=_q(.75),_IQR=_Q3-_Q1,_LB=Math.max(_Q1-1.5*_IQR,20);
-  let _kept=scores.filter(d=>d.score>=_LB);
-  let _removed=scores.filter(d=>d.score<_LB);
-  if(!_removed.length && scores.length>=4){
-    const _mn=Math.min(..._sims);
-    _kept=scores.filter(d=>d.score!==_mn);
-    _removed=scores.filter(d=>d.score===_mn);
+  // 基准组合: 2000 占 80%, 其他各占 ~6.67%
+  const BENCHMARKS=[
+    {id:'2000',label:'2000 互联网泡沫',bub:B2000,w:0.8000},
+    {id:'2008',label:'2008 金融危机',bub:B2008,w:0.0667},
+    {id:'2020',label:'2020 疫情冲击',bub:B2020,w:0.0667},
+    {id:'2022',label:'2022 加息冲击',bub:B2022,w:0.0666},
+  ];
+  function _calcBench(bubble){
+    const sc=DIMS.map(d=>({...d,score:d.s(bubble,B2026)}));
+    const sims=sc.filter(d=>d.score!=null).map(d=>d.score).sort((a,b)=>a-b);
+    const q=p=>{const i=(sims.length-1)*p,lo=Math.floor(i),hi=Math.ceil(i);return sims[lo]+(sims[hi]-sims[lo])*(i-lo);};
+    const Q1=q(.25),Q3=q(.75),IQR=Q3-Q1,LB=Math.max(Q1-1.5*IQR,20);
+    let kept=sc.filter(d=>d.score>=LB);let removed=sc.filter(d=>d.score<LB);
+    if(!removed.length&&sc.length>=4){const mn=Math.min(...sims);kept=sc.filter(d=>d.score!==mn);removed=sc.filter(d=>d.score===mn);}
+    const kw=kept.reduce((a,d)=>a+d.w,0)||1;
+    return {trimmed:Math.round(kept.reduce((a,d)=>a+d.score*d.w,0)/kw),raw:Math.round(sc.reduce((a,d)=>a+d.score*d.w,0)/sc.reduce((a,d)=>a+d.w,0)),removed:removed.map(d=>d.n),kept:kept.length,total:sc.length};
   }
-  const _kw=_kept.reduce((a,d)=>a+d.w,0)||1;
-  const totalScore=Math.round(_kept.reduce((a,d)=>a+d.score*d.w,0)/_kw);
-  const _rawScore=Math.round(scores.reduce((a,d)=>a+d.score*d.w,0));
-  const _removedNames=_removed.map(d=>d.n);
+  const _perBench=BENCHMARKS.map(b=>{const r=_calcBench(b.bub);return {id:b.id,label:b.label,w:b.w,trimmed:r.trimmed,raw:r.raw,removed:r.removed,kept:r.kept,total:r.total};});
+  const totalScore=Math.round(_perBench.reduce((a,b)=>a+b.trimmed*b.w,0));
+  const _mainBench=_perBench.find(p=>p.id==='2000');
+  const _rawScore=_mainBench.raw;
+  const _removedNames=_mainBench.removed;
+  const scores=DIMS.map(d=>({...d,score:d.s(B2000,B2026)}));
   function sc(v){return v>=75?'#ef4444':v>=55?'#f59e0b':v>=35?'#60a5fa':'#10b981';}
   function scls(s){return s==='danger'?'danger':s==='warn'?'warn':s==='safe'?'safe':'info';}
   function slbl(s){return s==='danger'?'⛔ 危险':s==='warn'?'⚠️ 警惕':s==='safe'?'✅ 安全':'ℹ️ 中性';}
@@ -2401,18 +2411,28 @@ new Chart(obCtx, {
     const dangerCount=ANOMALIES.filter(a=>a.signal==='danger').length;
     const warnCount=ANOMALIES.filter(a=>a.signal==='warn').length;
 
-    el.innerHTML=`<div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1rem"><span style="font-size:1.5rem">🚨</span><h3 style="margin:0;color:var(--gold);font-size:1.1rem">美国股市危机预警</h3><span style="font-size:.75rem;color:var(--text3);margin-left:auto">2000 vs 2026 对比分析 · ${new Date().toLocaleDateString('zh-CN')}</span></div>
+    // 4 基准对比表
+    const benchTableRows=_perBench.map(b=>{
+      const wPct=Math.round(b.w*100);
+      const c=b.trimmed<40?'#10b981':b.trimmed<55?'#60a5fa':b.trimmed<70?'#f59e0b':'#ef4444';
+      const rem=b.removed&&b.removed.length?`<div style="font-size:10px;color:var(--text3);margin-top:3px">剔除: ${b.removed.join(', ')}</div>`:'';
+      return `<tr><td style="font-weight:700;padding:6px 8px">${b.label}</td><td style="text-align:center;padding:6px 8px;font-family:monospace">${wPct}%</td><td style="text-align:center;padding:6px 8px;font-family:monospace;color:${c};font-weight:700">${b.trimmed}%</td><td style="text-align:center;padding:6px 8px;font-family:monospace;color:var(--text3)">${b.raw}%</td><td style="text-align:center;padding:6px 8px;font-family:monospace;font-size:11px">${b.kept}/${b.total}${rem}</td></tr>`;
+    }).join('');
+    const benchTableHTML=`<div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;margin-bottom:1.5rem;overflow-x:auto"><div style="font-size:.85rem;font-weight:700;margin-bottom:.75rem">📊 四基准综合相似度<span style="font-weight:400;color:var(--text3);margin-left:.5rem">2000(80%)+2008/2020/2022(各~6.7%)</span></div><table style="width:100%;border-collapse:collapse;font-size:12px"><thead><tr style="color:var(--gold);border-bottom:1px solid var(--border)"><th style="text-align:left;padding:6px 8px">基准危机</th><th style="padding:6px 8px">权重</th><th style="padding:6px 8px">相似度(IQR后)</th><th style="padding:6px 8px">原始均值</th><th style="padding:6px 8px">保留/总维</th></tr></thead><tbody>${benchTableRows}</tbody></table><div style="font-size:11px;color:var(--text3);margin-top:8px;padding-top:8px;border-top:1px dashed var(--border)">综合评分 = Σ(各基准相似度 × 基准权重)，各基准内部 IQR 法剔除异常维度后再加权平均</div></div>`;
+
+    el.innerHTML=`<div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1rem"><span style="font-size:1.5rem">🚨</span><h3 style="margin:0;color:var(--gold);font-size:1.1rem">美国股市危机预警</h3><span style="font-size:.75rem;color:var(--text3);margin-left:auto">2000/2008/2020/2022 vs 2026 综合对比 · ${new Date().toLocaleDateString('zh-CN')}</span></div>
+    ${benchTableHTML}
     <div style="display:grid;grid-template-columns:300px 1fr;gap:1.25rem;margin-bottom:1.5rem">
       <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.5rem;text-align:center">
         <div style="margin-bottom:.5rem">${gaugeSVG}</div>
         <div style="font-size:2.5rem;font-weight:700;color:var(--gold);font-family:monospace">${totalScore}<span style="font-size:18px">%</span></div>
-        <div style="font-size:.7rem;color:var(--text3);letter-spacing:1px">与2000年泡沫相似度</div>
-        <div style="margin-top:.75rem;font-size:.9rem;font-weight:700;color:${col}">${totalScore<40?'与2000年差异大，风险偏低':totalScore<55?'部分相似，需保持警惕':totalScore<70?'中高相似度，系统性风险上升':'高度相似，极端泡沫警告'}</div>
-        <div style="margin-top:.4rem;font-size:.65rem;color:var(--text3);line-height:1.5">原始均值 ${_rawScore}% · IQR剔除${_removedNames.length?_removedNames.length+'维异常['+_removedNames.join('/')+']':'0维'} · 保留${_kept.length}/${scores.length}维加权</div>
+        <div style="font-size:.7rem;color:var(--text3);letter-spacing:1px">综合系统性风险指数</div>
+        <div style="margin-top:.75rem;font-size:.9rem;font-weight:700;color:${col}">${totalScore<40?'综合风险偏低':totalScore<55?'部分相似，需保持警惕':totalScore<70?'中高相似度，系统性风险上升':'高度相似，极端泡沫警告'}</div>
+        <div style="margin-top:.4rem;font-size:.65rem;color:var(--text3);line-height:1.5">综合 = 2000×80% + (2008+2020+2022)×20% · 原始均值 ${_rawScore}% · 保留${_mainBench.kept}/${_mainBench.total}维</div>
       </div>
       <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.25rem">
         <div style="font-weight:700;color:var(--gold);margin-bottom:.5rem;font-size:.9rem">📋 核心结论</div>
-        <div style="font-size:.82rem;color:var(--text2);line-height:1.7">当前市场与2000年互联网泡沫存在<b style="color:${col}">${totalScore}%的结构性相似</b>。关键共性：CAPE接近历史极值(41.6 vs 44.2)、市场高度集中(39% vs 27%)、油价高企推升通胀。<b>关键差异</b>：当前Mag7有真实盈利(FCF $3000亿+)而非dot-com幻觉；Fed在降息而非加息；黄金暴涨73%发出极强避险信号(2000年持平)。<br><br><span style="color:#ef4444">⛔ ${dangerCount}项危险信号</span> · <span style="color:#f59e0b">⚠️ ${warnCount}项关注信号</span></div>
+        <div style="font-size:.82rem;color:var(--text2);line-height:1.7">当前市场与历史危机综合相似度<b style="color:${col}">${totalScore}%</b>。综合评分以 2000 年互联网泡沫为主导权重(80%)，叠加 2008 金融危机 / 2020 疫情冲击 / 2022 加息冲击三个基准(各~6.7%)，各基准内部 IQR 法剔除异常维度后再加权平均。<br><br><span style="color:#ef4444">⛔ ${dangerCount}项危险信号</span> · <span style="color:#f59e0b">⚠️ ${warnCount}项关注信号</span></div>
       </div>
     </div>
     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;margin-bottom:1.5rem;overflow-x:auto">
